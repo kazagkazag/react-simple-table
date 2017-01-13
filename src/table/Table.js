@@ -15,7 +15,10 @@ export default class Table extends Component {
         return (
             <table className={this.props.className}>
                 <Head columns={this.props.columns}/>
-                <Body data={this.props.data}/>
+                <Body
+                    columns={this.props.columns}
+                    data={this.props.data}
+                />
             </table>
         )
     }

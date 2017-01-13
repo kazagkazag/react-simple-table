@@ -11,13 +11,16 @@ class App extends Component {
             className="my-table"
             columns={[
                 {
-                    title: "First column"
+                    title: "First column",
+                    source: "id"
                 },
                 {
-                    title: "Second one"
+                    title: "Second one",
+                    source: "name"
                 },
                 {
-                    title: "Last column"
+                    title: "Last column",
+                    source: "age"
                 }
             ]}
             data={

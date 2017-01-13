@@ -1,16 +1,23 @@
 import React, {PropTypes} from "react";
 import sid from "shortid";
 
-export default function Body({data = []}) {
+export default function Body({data = [], columns = []}) {
+    const dataInOrderFromColumns = data.map(row => {
+        return columns.map(column => {
+            return row[column.source];
+        });
+    });
+
     return (
         <tbody>
-            {renderRows(data)}
+            {renderRows(dataInOrderFromColumns)}
         </tbody>
     );
 }
 
 Body.propTypes = {
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    data: PropTypes.array
 };
 
 function renderRows(rows) {
@@ -32,5 +39,5 @@ function renderCell([key, value]) {
         <td key={key}>
             {value}
         </td>
-    )
+    );
 }
