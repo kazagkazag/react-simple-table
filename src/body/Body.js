@@ -2,9 +2,13 @@ import React, {PropTypes} from "react";
 import sid from "shortid";
 
 export default function Body({data = [], columns = []}) {
-    const dataInOrderFromColumns = data.map(row => {
+    const dataInOrderFromColumns = data.map(rowData => {
         return columns.map(column => {
-            return row[column.source];
+            if(column.component && typeof column.component === "function") {
+                return column.component(rowData);
+            } else {
+                return rowData[column.field];
+            }
         });
     });
 

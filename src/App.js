@@ -12,15 +12,21 @@ class App extends Component {
             columns={[
                 {
                     title: "First column",
-                    source: "id"
+                    field: "id"
                 },
                 {
                     title: "Second one",
-                    source: "name"
+                    field: "age"
+                },
+                {
+                    title: "Third column",
+                    field: "name"
                 },
                 {
                     title: "Last column",
-                    source: "age"
+                    component: (user) => {
+                        return <button>Delete {user.name}</button>
+                    }
                 }
             ]}
             data={
