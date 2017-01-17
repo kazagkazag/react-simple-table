@@ -174,4 +174,90 @@ describe("Body", () => {
         expect(rows.at(0).find("td").at(0).find("p").text()).to.contains(data[0].title);
     });
 
+    it("should render details row after click on row for data in objects form", () => {
+        const data = [
+            {
+                id: 0,
+                title: "Some title"
+            },
+            {
+                id: 1,
+                title: "Another title"
+            }
+        ];
+        const columns = [
+            {
+                field: "title",
+                component: (item = {}) => {
+                    return <p>I am the template! {item.id} {item.title}</p>
+                }
+            },
+            {
+                field: "id"
+            }
+        ];
+        const details = (item) => {
+            return <h1 className="details">Details: {item.id} {item.title}</h1>;
+        };
+        const newProps = Object.assign({}, props, {
+            data,
+            columns,
+            details
+        });
+        const wrapper = shallow(<Body {...newProps}/>);
+        const secondRow = wrapper.find("tr").at(1);
+        const secondCellInSecondRow = secondRow.find("td").at(1);
+
+        secondCellInSecondRow.simulate("click");
+
+        const detailsContent = wrapper.find(".details");
+        const detailsCell = wrapper.find(".with-details");
+
+        expect(detailsContent).to.have.length(1);
+        expect(detailsContent.text()).to.contains("Another title");
+        expect(detailsCell.props().colSpan).to.equal(2);
+    });
+
+    it("should hide details row after second click on row for data in objects form", () => {
+        const data = [
+            {
+                id: 0,
+                title: "Some title"
+            },
+            {
+                id: 1,
+                title: "Another title"
+            }
+        ];
+        const columns = [
+            {
+                field: "title",
+                component: (item = {}) => {
+                    return <p>I am the template! {item.id} {item.title}</p>
+                }
+            },
+            {
+                field: "id"
+            }
+        ];
+        const details = (item) => {
+            return <h1 className="details">Details: {item.id} {item.title}</h1>;
+        };
+        const newProps = Object.assign({}, props, {
+            data,
+            columns,
+            details
+        });
+        const wrapper = shallow(<Body {...newProps}/>);
+        const secondRow = wrapper.find("tr").at(1);
+        const secondCellInSecondRow = secondRow.find("td").at(1);
+
+        secondCellInSecondRow.simulate("click");
+        secondCellInSecondRow.simulate("click");
+
+        const detailsContent = wrapper.find(".details");
+
+        expect(detailsContent).to.have.length(0);
+    });
+
 });

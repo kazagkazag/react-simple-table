@@ -18,6 +18,7 @@ export default class Table extends Component {
                 <Body
                     columns={this.props.columns}
                     data={this.props.data}
+                    details={this.props.details}
                 />
             </table>
         )
@@ -27,7 +28,8 @@ export default class Table extends Component {
 Table.propTypes = {
     columns: PropTypes.array,
     data: PropTypes.array,
-    className: PropTypes.string
+    className: PropTypes.string,
+    details: PropTypes.func
 };
 
 Table.childContextTypes = {

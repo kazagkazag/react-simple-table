@@ -48,6 +48,9 @@ class App extends Component {
                     },
                 ]
             }
+            details={(item) => {
+                return <p className="details">Item: {item.id} {item.name}</p>;
+            }}
         />
       </div>
     );
