@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from "react";
 import sid from "shortid";
+import Cell from "./Cell";
 
 export default class Body extends Component {
 
@@ -50,36 +51,45 @@ export default class Body extends Component {
         });
     }
 
+    getDetailsRow(dataOfClickedRow) {
+        return [{
+            colSpan: this.props.columns.length,
+            content: this.props.details(dataOfClickedRow),
+            className: "with-details"
+        }]
+    }
+
+    getCells(row) {
+        return this.props.columns.map(column => this.getCell(column, row));
+    }
+
+    getCell(column, row) {
+        const cellProperties = {};
+
+        if (column.component && typeof column.component === "function") {
+            cellProperties.content = column.component(row);
+        } else {
+            cellProperties.content = row[column.field];
+        }
+
+        if (this.props.details) {
+            cellProperties.onClick = () => {
+                this.toggleDetails(row);
+            };
+        }
+
+        return cellProperties;
+    }
+
     getDataInOrderFromColumns() {
-        const columns = this.props.columns;
         const data = this.state.data;
 
         return data.map((rowData, index) => {
             if (rowData.isRowWithDetails) {
-                const numberOfCellsInEachRow = columns.length;
-                return [{
-                    colSpan: numberOfCellsInEachRow,
-                    content: this.props.details(data[index - 1]),
-                    className: "with-details"
-                }];
+                const dataOfPreviousRow = data[index - 1];
+                return this.getDetailsRow(dataOfPreviousRow);
             } else {
-                return columns.map(column => {
-                    const cellProperties = {};
-
-                    if (column.component && typeof column.component === "function") {
-                        cellProperties.content = column.component(rowData);
-                    } else {
-                        cellProperties.content = rowData[column.field];
-                    }
-
-                    if (this.props.details) {
-                        cellProperties.onClick = () => {
-                            this.toggleDetails(rowData);
-                        };
-                    }
-
-                    return cellProperties;
-                });
+                return this.getCells(rowData);
             }
         });
 
@@ -92,7 +102,7 @@ export default class Body extends Component {
     render() {
         return (
             <tbody>
-            {this.renderRows()}
+                {this.renderRows()}
             </tbody>
         );
     }
@@ -105,30 +115,22 @@ Body.propTypes = {
 };
 
 function renderRow(row) {
-    const cells = Object.entries(row).map(renderCell);
+    const cells = Object.entries(row).map(([key, cell]) => {
+        return (
+            <Cell
+                key={key}
+                onClick={cell.onClick}
+                colSpan={cell.colSpan}
+                className={cell.className}
+            >
+                {cell.content}
+            </Cell>
+        );
+    });
 
     return (
         <tr key={sid.generate()}>
             {cells}
         </tr>
-    );
-}
-
-function renderCell(cellData) {
-    const [key, cell] = cellData;
-    const cellProperties = {
-        key,
-        className: cell.className,
-        colSpan: cell.colSpan
-    };
-
-    if (cell.onClick) {
-        cellProperties.onClick = cell.onClick;
-    }
-
-    return (
-        <td {...cellProperties}>
-            {cell.content}
-        </td>
     );
 }

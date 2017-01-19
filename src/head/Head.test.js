@@ -16,9 +16,9 @@ describe("Head", () => {
     });
 
     it("should render no columns if no data provided", () => {
-         const wrapper = shallow(<Head {...props} />);
+        const wrapper = shallow(<Head {...props} />);
 
-         expect(wrapper.find("th")).to.have.length(0);
+        expect(wrapper.find("th")).to.have.length(0);
     });
 
     it("should render columns", () => {

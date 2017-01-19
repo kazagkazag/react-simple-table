@@ -1,6 +1,6 @@
 import React from "react";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {shallow, mount} from "enzyme";
 import Body from "./Body";
 
 describe("Body", () => {
@@ -44,7 +44,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = shallow(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -69,7 +69,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = shallow(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -97,7 +97,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = shallow(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -132,7 +132,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = shallow(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -165,7 +165,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = shallow(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -204,7 +204,7 @@ describe("Body", () => {
             columns,
             details
         });
-        const wrapper = shallow(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>);
         const secondRow = wrapper.find("tr").at(1);
         const secondCellInSecondRow = secondRow.find("td").at(1);
 
@@ -248,11 +248,14 @@ describe("Body", () => {
             columns,
             details
         });
-        const wrapper = shallow(<Body {...newProps}/>);
-        const secondRow = wrapper.find("tr").at(1);
-        const secondCellInSecondRow = secondRow.find("td").at(1);
+        const wrapper = mount(<Body {...newProps}/>);
 
+        let secondRow = wrapper.find("tr").at(1);
+        let secondCellInSecondRow = secondRow.find("td").at(1);
         secondCellInSecondRow.simulate("click");
+
+        secondRow = wrapper.find("tr").at(1);
+        secondCellInSecondRow = secondRow.find("td").at(1);
         secondCellInSecondRow.simulate("click");
 
         const detailsContent = wrapper.find(".details");
