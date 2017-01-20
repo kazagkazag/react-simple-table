@@ -1,6 +1,5 @@
 import React, {PropTypes, Component} from "react";
-import sid from "shortid";
-import Cell from "./Cell";
+import Row from "./Row";
 
 export default class Body extends Component {
 
@@ -26,7 +25,7 @@ export default class Body extends Component {
         const areDetailsCurrentlyVisible = nextItem
             && nextItem.isRowWithDetails;
 
-        if(areDetailsCurrentlyVisible) {
+        if (areDetailsCurrentlyVisible) {
             this.hideDetails(indexOfClickedItem);
         } else {
             this.showDetails(indexOfClickedItem);
@@ -96,13 +95,21 @@ export default class Body extends Component {
     }
 
     renderRows() {
-        return this.getDataInOrderFromColumns().map(renderRow);
+        return this.getDataInOrderFromColumns()
+            .map((cells, index) => {
+                return (
+                    <Row
+                        key={index}
+                        cells={cells}
+                    />
+                );
+            });
     }
 
     render() {
         return (
             <tbody>
-                {this.renderRows()}
+            {this.renderRows()}
             </tbody>
         );
     }
@@ -113,24 +120,3 @@ Body.propTypes = {
     data: PropTypes.array,
     details: PropTypes.func
 };
-
-function renderRow(row) {
-    const cells = Object.entries(row).map(([key, cell]) => {
-        return (
-            <Cell
-                key={key}
-                onClick={cell.onClick}
-                colSpan={cell.colSpan}
-                className={cell.className}
-            >
-                {cell.content}
-            </Cell>
-        );
-    });
-
-    return (
-        <tr key={sid.generate()}>
-            {cells}
-        </tr>
-    );
-}
