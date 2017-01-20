@@ -14,7 +14,10 @@ export default class Table extends Component {
     render() {
         return (
             <table className={this.props.className}>
-                <Head columns={this.props.columns}/>
+                <Head
+                    columns={this.props.columns}
+                    sorterComponent={this.props.sorterComponent}
+                />
                 <Body
                     columns={this.props.columns}
                     data={this.props.data}
@@ -29,7 +32,8 @@ Table.propTypes = {
     columns: PropTypes.array,
     data: PropTypes.array,
     className: PropTypes.string,
-    details: PropTypes.func
+    details: PropTypes.func,
+    sorterComponent: PropTypes.func
 };
 
 Table.childContextTypes = {

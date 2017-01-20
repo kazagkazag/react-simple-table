@@ -12,7 +12,8 @@ class App extends Component {
             columns={[
                 {
                     title: "First column",
-                    field: "id"
+                    field: "id",
+                    sorted: "ASC"
                 },
                 {
                     title: "Second one",
@@ -51,6 +52,7 @@ class App extends Component {
             details={(item) => {
                 return <p className="details">Item: {item.id} {item.name}</p>;
             }}
+            sorterComponent={(sorted) => <span>{sorted}</span>}
         />
       </div>
     );
