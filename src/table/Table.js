@@ -5,6 +5,22 @@ import Body from "../body/Body";
 
 export default class Table extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.container = null;
+
+        this.onScroll = this.onScroll.bind(this);
+    }
+
+    onScroll(event) {
+        const scrolledToTheBottom = this.container.clientHeight + this.container.scrollTop >= this.container.scrollHeight;
+
+        if(scrolledToTheBottom) {
+            this.props.onScrollToBottom(event);
+        }
+    }
+
     getChildContext() {
         return {
             className: this.props.className
@@ -14,6 +30,12 @@ export default class Table extends Component {
     getContainerStyles() {
         const styles = {};
 
+        this.addMaxHeightStyles(styles);
+
+        return styles;
+    }
+
+    addMaxHeightStyles(styles) {
         if(this.props.maxHeight) {
             styles.maxHeight = this.props.maxHeight;
             styles.overflowY = "auto";
@@ -27,6 +49,8 @@ export default class Table extends Component {
             <div
                 className={`${this.props.className}-container`}
                 style={this.getContainerStyles()}
+                onScroll={this.onScroll}
+                ref={element => this.container = element}
             >
                 <table className={this.props.className}>
                     <Head
@@ -50,7 +74,8 @@ Table.propTypes = {
     className: PropTypes.string,
     details: PropTypes.func,
     sorterComponent: PropTypes.func,
-    maxHeight: PropTypes.string
+    maxHeight: PropTypes.string,
+    onScrollToBottom: PropTypes.func
 };
 
 Table.childContextTypes = {

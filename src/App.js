@@ -64,6 +64,7 @@ class App extends Component {
             }}
             sorterComponent={(sorted) => <span>{sorted}</span>}
             maxHeight="120px"
+            onScrollToBottom={(event) => console.log(event)}
         />
       </div>
     );
