@@ -47,12 +47,23 @@ class App extends Component {
                         name: "Jack",
                         age: 14
                     },
+                    {
+                        id: 3,
+                        name: "Jordan",
+                        age: 23
+                    },
+                    {
+                        id: 4,
+                        name: "Jonathan",
+                        age: 13
+                    },
                 ]
             }
             details={(item) => {
                 return <p className="details">Item: {item.id} {item.name}</p>;
             }}
             sorterComponent={(sorted) => <span>{sorted}</span>}
+            maxHeight="120px"
         />
       </div>
     );

@@ -16,6 +16,11 @@ describe("Table", () => {
 
     it("should render table with basic class name", () => {
         const wrapper = shallow(<Table className="my-table" />);
-        expect(wrapper.hasClass("my-table")).to.equal(true);
+        expect(wrapper.find("table").hasClass("my-table")).to.equal(true);
+    });
+
+    it("should render table with max height if specified", () => {
+        const wrapper = shallow(<Table className="my-table" maxHeight="200px" />);
+        expect(wrapper.find(".my-table-container").props().style.maxHeight).to.equal("200px");
     });
 });
