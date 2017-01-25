@@ -38,6 +38,10 @@ class App extends Component {
                         age: 12
                     },
                     {
+                        fullRow: true,
+                        content: "Sub header"
+                    },
+                    {
                         id: 1,
                         name: "Janet",
                         age: 23

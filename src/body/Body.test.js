@@ -263,4 +263,73 @@ describe("Body", () => {
         expect(detailsContent).to.have.length(0);
     });
 
+    it("should render subheader rows with plain text based on data as object", () => {
+        const data = [
+            {
+                id: 0,
+                title: "Some title"
+            },
+            {
+                fullRow: true,
+                content: "Subheader content"
+            },
+            {
+                id: 1,
+                title: "Another title"
+            }
+        ];
+        const columns = [
+            {
+                field: "title"
+            },
+            {
+                field: "id"
+            }
+        ];
+        const newProps = Object.assign({}, props, {
+            data,
+            columns
+        });
+        const wrapper = mount(<Body {...newProps}/>);
+        const rows = wrapper.find("tr");
+
+        expect(rows).to.have.length(3);
+        expect(rows.at(1).find("td").at(0).text()).to.equal(data[1].content);
+    });
+
+    it("should render subheader rows with component based on data as object", () => {
+        const subheaderText = "Subheader content";
+        const data = [
+            {
+                id: 0,
+                title: "Some title"
+            },
+            {
+                fullRow: true,
+                content: () => <p>{subheaderText}</p>
+            },
+            {
+                id: 1,
+                title: "Another title"
+            }
+        ];
+        const columns = [
+            {
+                field: "title"
+            },
+            {
+                field: "id"
+            }
+        ];
+        const newProps = Object.assign({}, props, {
+            data,
+            columns
+        });
+        const wrapper = mount(<Body {...newProps}/>);
+        const rows = wrapper.find("tr");
+
+        expect(rows).to.have.length(3);
+        expect(rows.at(1).find("td").at(0).text()).to.equal(subheaderText);
+    });
+
 });

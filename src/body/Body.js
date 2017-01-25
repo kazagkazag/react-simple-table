@@ -50,10 +50,27 @@ export default class Body extends Component {
         });
     }
 
-    getDetailsRow(dataOfClickedRow) {
+    getDetailsRowCells(dataOfClickedRow) {
         return [{
             colSpan: this.props.columns.length,
             content: this.props.details(dataOfClickedRow),
+            className: "with-details"
+        }]
+    }
+
+    getFullRowCells(dataOfClickedRow) {
+        const contentType = typeof dataOfClickedRow.content;
+        let content = null;
+
+        if(contentType === "function") {
+            content = dataOfClickedRow.content();
+        } else {
+            content = dataOfClickedRow.content;
+        }
+
+        return [{
+            colSpan: this.props.columns.length,
+            content: content,
             className: "with-details"
         }]
     }
@@ -86,7 +103,9 @@ export default class Body extends Component {
         return data.map((rowData, index) => {
             if (rowData.isRowWithDetails) {
                 const dataOfPreviousRow = data[index - 1];
-                return this.getDetailsRow(dataOfPreviousRow);
+                return this.getDetailsRowCells(dataOfPreviousRow);
+            } else if(rowData.fullRow) {
+                return this.getFullRowCells(rowData);
             } else {
                 return this.getCells(rowData);
             }
