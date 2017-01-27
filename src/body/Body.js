@@ -75,7 +75,7 @@ export default class Body extends Component {
         }]
     }
 
-    getCells(row) {
+    getStandardRowCells(row) {
         return this.props.columns.map(column => this.getCell(column, row));
     }
 
@@ -107,7 +107,7 @@ export default class Body extends Component {
             } else if(rowData.fullRow) {
                 return this.getFullRowCells(rowData);
             } else {
-                return this.getCells(rowData);
+                return this.getStandardRowCells(rowData);
             }
         });
 
@@ -128,7 +128,7 @@ export default class Body extends Component {
     render() {
         return (
             <tbody>
-            {this.renderRows()}
+                {this.renderRows()}
             </tbody>
         );
     }

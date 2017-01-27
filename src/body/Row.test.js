@@ -22,6 +22,4 @@ describe("Row", () => {
 
         expect(wrapper.find(Cell)).to.have.length(1);
     });
-
-
 });
