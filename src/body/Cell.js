@@ -1,9 +1,11 @@
 import React, {PropTypes} from "react";
 
 function Cell(props) {
+    const {children, ...rest} = props;
+
     return (
-        <td {...props}>
-            {props.children}
+        <td {...rest}>
+            {children}
         </td>
     );
 }

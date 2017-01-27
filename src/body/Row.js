@@ -3,7 +3,7 @@ import Cell from "./Cell";
 import sid from "shortid";
 
 function Row(props) {
-    const cells = Object.entries(props.cells).map(([key, cell]) => {
+    const cells = props.cells.map((cell, key) => {
         return (
             <Cell
                 key={key}
