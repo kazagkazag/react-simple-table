@@ -97,7 +97,7 @@ export default class Body extends Component {
         return cellProperties;
     }
 
-    getDataInOrderFromColumns() {
+    getCellsForRowsInColumnsOrder() {
         const data = this.state.data;
 
         return data.map((rowData, index) => {
@@ -114,7 +114,7 @@ export default class Body extends Component {
     }
 
     renderRows() {
-        return this.getDataInOrderFromColumns()
+        return this.getCellsForRowsInColumnsOrder()
             .map((cells, index) => {
                 return (
                     <Row

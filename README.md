@@ -34,3 +34,19 @@ Each column could have following properties:
     * `component` (function) - if you want to specify column unrelated to
     specified data, for example column with available actions of item, 
     you can use this function. It accepts one parameter - data of current row.
+* `data` (array) - list of objects or lists. Every item represents one row
+of your data. 
+    * If item is an array, then `columns[n].field` should to point to the
+index of element in that item. 
+    *If item is an object, then `columns[n].filed` should point to the 
+    property name of the item.
+* `details` (function) - function that returns component. Takes one argument
+- data from clicked row (in the form specified in `data` list)
+* `sorterComponent` (function) - function that returns component rendered
+in table header. Takes one argument - string specified as `sorted` property
+in columns definition. If you wan't to display sorter in header, you have to
+specify `sorted` property in column definition.
+* `maxHeight` (string) - valid css value for "max-height" property. If
+specified then entire table is wrapped in div with that "max-height" applied.
+* `onScrollToBottom` (function) - function fired after user scrolled
+to the bottom of the table. Takes one argument - react event.
