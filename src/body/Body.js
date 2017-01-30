@@ -71,7 +71,7 @@ export default class Body extends Component {
         return [{
             colSpan: this.props.columns.length,
             content: content,
-            className: "with-details"
+            className: "is-full"
         }]
     }
 
@@ -126,8 +126,9 @@ export default class Body extends Component {
     }
 
     render() {
+        const className = `${this.context.className}_body`;
         return (
-            <tbody>
+            <tbody className={className}>
                 {this.renderRows()}
             </tbody>
         );
@@ -138,4 +139,8 @@ Body.propTypes = {
     columns: PropTypes.array,
     data: PropTypes.array,
     details: PropTypes.func
+};
+
+Body.contextTypes = {
+    className: PropTypes.string
 };

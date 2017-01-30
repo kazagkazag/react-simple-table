@@ -1,13 +1,13 @@
 import React, {PropTypes} from "react";
 
 export default function Head({columns = [], sorterComponent, onSort}, {className}) {
-    const headClassName = `${className}-head`;
+    const headClassName = `${className}_head`;
 
     return (
         <thead className={headClassName}>
-        <tr>
-            {renderColumns(columns, sorterComponent, onSort)}
-        </tr>
+            <tr>
+                {renderColumns(columns, sorterComponent, onSort)}
+            </tr>
         </thead>
     );
 }
