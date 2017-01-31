@@ -19,34 +19,47 @@ import {Table} from "react-simple-table";
 
 ## Props
 
-* `className` (string) - base class name. All components within table will inherit from that
+### `className` (string) 
+Base class name. All components within table will inherit from that
 base class and add some sufix to it (according to the BEM methodology).
-* `columns` (array) - list of objects. Every object is a definition of column in your table.
+
+### `columns` (array) 
+List of objects. Every object is a definition of column in your table.
 Each column could have following properties:
-    * `title` (string) - the title of the column, displayed in `<thead>`
-    * `field` (string) - the name of the field from which column will display
-    data. `field` could indicate name of the property from your data objects, 
-    if your data is defined as list of objects, or index of the element if 
-    your data is defined as list of lists
-    * `sorted` (string) - one of the following: `ASC`, `DESC`. Describes direction
-    of data sorting using on that column. This property only adds class on
-    columns cells, this will not sort your data!
-    * `component` (function) - if you want to specify column unrelated to
-    specified data, for example column with available actions of item, 
-    you can use this function. It accepts one parameter - data of current row.
-* `data` (array) - list of objects or lists. Every item represents one row
+
+#### `columns.title` (string) 
+The title of the column, displayed in `<thead>`
+#### `columns.field` (string) 
+The name of the field from which column will display
+data. `field` could indicate name of the property from your data objects, 
+if your data is defined as list of objects, or index of the element if 
+your data is defined as list of lists
+#### `columns.sorted` (string) 
+One of the following: `ASC`, `DESC`. Describes direction
+of data sorting using on that column. This property only adds class on
+columns cells, this will not sort your data!
+#### `columns.component` (function) 
+If you want to specify column unrelated to
+specified data, for example column with available actions of item, 
+you can use this function. It accepts one parameter - data of current row.
+#### `columns.data` (array) 
+List of objects or lists. Every item represents one row
 of your data. 
-    * If item is an array, then `columns[n].field` should to point to the
+* If item is an array, then `columns[n].field` should to point to the
 index of element in that item. 
-    *If item is an object, then `columns[n].filed` should point to the 
-    property name of the item.
-* `details` (function) - function that returns component. Takes one argument
+* If item is an object, then `columns[n].filed` should point to the 
+property name of the item.
+#### `columns.details` (function) 
+Function that returns component. Takes one argument
 - data from clicked row (in the form specified in `data` list)
-* `sorterComponent` (function) - function that returns component rendered
+### `sorterComponent` (function) 
+Function that returns component rendered
 in table header. Takes one argument - string specified as `sorted` property
 in columns definition. If you wan't to display sorter in header, you have to
 specify `sorted` property in column definition.
-* `maxHeight` (string) - valid css value for "max-height" property. If
+### `maxHeight` (string) 
+Valid css value for "max-height" property. If
 specified then entire table is wrapped in div with that "max-height" applied.
-* `onScrollToBottom` (function) - function fired after user scrolled
-to the bottom of the table. Takes one argument - react event.
+### `onScrollToBottom` (function) 
+Function fired after user scrolled to the bottom of the table. 
+Takes one argument - react event.
