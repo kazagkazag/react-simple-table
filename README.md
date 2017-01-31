@@ -51,7 +51,7 @@ index of element in that item.
 * If item is an object, then `columns[n].filed` should point to the 
 property name of the item.
 
-#### `columns.details` (function) 
+### `details` (function) 
 Function that returns component. Takes one argument
 - data from clicked row (in the form specified in `data` list).
 
@@ -68,3 +68,69 @@ specified then entire table is wrapped in div with that "max-height" applied.
 ### `onScrollToBottom` (function) 
 Function fired after user scrolled to the bottom of the table. 
 Takes one argument - react event.
+
+## Examples
+
+### Table with two columns and two rows, data defined as list of objects.
+
+```jsx
+
+<Table 
+    data={[
+        {
+            id: 1,
+            name: "John"
+        },
+        {
+            id: 2,
+            name: "Bob"
+        }
+    ]}
+    columns={[
+        {
+            title: "User name",
+            field: "name"
+        },
+        {
+            title: "User ID",
+            field: "id"
+        }
+    ]}
+/>
+
+// result: Table with two columns: 
+// 1. User name -> from "name" field of data item
+// 2. User ID ->  from "id" field of data item
+```
+
+### Table with two columns and two rows, data defined as list of lists.
+
+```jsx
+
+<Table 
+    data={[
+        [
+            1,
+            "John"
+        ],
+        [
+            2,
+            "Bob"
+        ]
+    ]}
+    columns={[
+        {
+            title: "User name",
+            field: 1
+        },
+        {
+            title: "User ID",
+            field: 0
+        }
+    ]}
+/>
+
+// result: Table with two columns: 
+// 1. User name -> from [1] field of data item
+// 2. User ID ->  from [0] field of data item
+```
