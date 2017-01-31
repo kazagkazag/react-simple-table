@@ -42,7 +42,8 @@ columns cells, this will not sort your data!
 If you want to specify column unrelated to
 specified data, for example column with available actions of item, 
 you can use this function. It accepts one parameter - data of current row.
-#### `columns.data` (array) 
+
+### `data` (array) 
 List of objects or lists. Every item represents one row
 of your data. 
 * If item is an array, then `columns[n].field` should point to the
