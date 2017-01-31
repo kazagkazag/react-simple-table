@@ -45,21 +45,25 @@ you can use this function. It accepts one parameter - data of current row.
 #### `columns.data` (array) 
 List of objects or lists. Every item represents one row
 of your data. 
-* If item is an array, then `columns[n].field` should to point to the
+* If item is an array, then `columns[n].field` should point to the
 index of element in that item. 
 * If item is an object, then `columns[n].filed` should point to the 
 property name of the item.
+
 #### `columns.details` (function) 
 Function that returns component. Takes one argument
-- data from clicked row (in the form specified in `data` list)
+- data from clicked row (in the form specified in `data` list).
+
 ### `sorterComponent` (function) 
 Function that returns component rendered
 in table header. Takes one argument - string specified as `sorted` property
 in columns definition. If you wan't to display sorter in header, you have to
 specify `sorted` property in column definition.
+
 ### `maxHeight` (string) 
 Valid css value for "max-height" property. If
 specified then entire table is wrapped in div with that "max-height" applied.
+
 ### `onScrollToBottom` (function) 
 Function fired after user scrolled to the bottom of the table. 
 Takes one argument - react event.
