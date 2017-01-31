@@ -1,13 +1,16 @@
 import React, {PropTypes} from "react";
+import Columns from "./Columns";
 
 export default function Head({columns = [], sorterComponent, onSort}, {className}) {
     const headClassName = `${className}_head`;
 
     return (
         <thead className={headClassName}>
-            <tr>
-                {renderColumns(columns, sorterComponent, onSort)}
-            </tr>
+            <Columns
+                columns={columns}
+                sorterComponent={sorterComponent}
+                onSort={onSort}
+            />
         </thead>
     );
 }
@@ -21,40 +24,3 @@ Head.propTypes = {
 Head.contextTypes = {
     className: PropTypes.string
 };
-
-function renderColumns(columns, sorterComponent, onSort) {
-    return columns.map(column => {
-        column.sorterComponent = sorterComponent;
-        column.onSort = onSort;
-        return renderColumn(column);
-    });
-}
-
-function renderColumn(column) {
-    const props = {
-        key: column.title
-    };
-
-    if(column.onSort) {
-        props.onClick = () => {
-            column.onSort(column);
-        };
-    }
-
-    return (
-        <th {...props}>
-            {column.title}
-            {renderSorter(column.sorted, column.sorterComponent)}
-        </th>
-    );
-}
-
-function renderSorter(sorted, sorterComponent) {
-    return sorted ? renderSorterComponent(sorted, sorterComponent) : null;
-}
-
-function renderSorterComponent(sorted, sorterComponent) {
-    return sorterComponent ? sorterComponent(sorted) : (
-        <span className={`sorter sorted-${sorted.toLowerCase()}`} />
-    );
-}
