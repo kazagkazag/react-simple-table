@@ -191,6 +191,98 @@ Takes one argument - react event.
     details={user => <p className="details">User: {user.id} {user.name}</p>}
 />
 
+// result: Table with two columns: 
+// 1. User name -> from "name" field of data item
+// 2. User ID ->  from "id" field of data item
+
+// After click on any row details row expands with paragraph 
+// containing text "User: 1 John" for first row, and "User 2 Bob" for second row.
+```
+
+### Table with two columns and two rows, data defined as list of objects. Sorter component defined.
+
+```jsx
+
+<Table 
+    data={...like in previous example...}
+    columns={[
+        {
+            title: "User name",
+            field: "name",
+            sorted: "ASC"
+        },
+        {
+            title: "User ID",
+            field: "id"
+        }
+    ]}
+    sorterComponent={sorted => <span>{sorted}</span>}
+/>
+
+// result: Table with two columns: 
+// 1. User name -> from "name" field of data item
+// 2. User ID ->  from "id" field of data item
+
+// First column will contain span element with "ASC" text inside. 
+// Second column will not have any sorter indicator, because
+// it doesn't have "sorted" specified.
+```
+### Table with three columns and two rows, data defined as list of objects. Last column contains button.
+
+```jsx
+
+<Table 
+    data={[
+        {
+            id: 1,
+            name: "John"
+        },
+        {
+            id: 2,
+            name: "Bob"
+        }
+    ]}
+    columns={[
+        {
+            title: "User name",
+            field: "name"
+        },
+        {
+            title: "User ID",
+            field: "id"
+        },
+        {
+            title: "Actions",
+            component: user => <button>Delete user: {user.name}</button>
+        }
+    ]}
+/>
+
+// result: Table with three columns: 
+// 1. User name -> from "name" field of data item
+// 2. User ID ->  from "id" field of data item
+// 3. Actions -> Button with "Delete user: John" in first row, and "Delete user: Bob" in second row.
+```
+
+### Table with two columns and two rows, data defined as list of objects. Details component specified.
+
+```jsx
+
+<Table 
+    data={...like in previous example...}
+    columns={[
+        {
+            title: "User name",
+            field: "name"
+        },
+        {
+            title: "User ID",
+            field: "id"
+        }
+    ]}
+    details={user => <p className="details">User: {user.id} {user.name}</p>}
+/>
+
 // result: Table with three columns: 
 // 1. User name -> from "name" field of data item
 // 2. User ID ->  from "id" field of data item
