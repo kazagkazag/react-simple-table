@@ -283,7 +283,7 @@ Takes one argument - react event.
     details={user => <p className="details">User: {user.id} {user.name}</p>}
 />
 
-// result: Table with three columns: 
+// result: Table with two columns: 
 // 1. User name -> from "name" field of data item
 // 2. User ID ->  from "id" field of data item
 
@@ -311,7 +311,7 @@ Takes one argument - react event.
     sorterComponent={sorted => <span>{sorted}</span>}
 />
 
-// result: Table with three columns: 
+// result: Table with two columns: 
 // 1. User name -> from "name" field of data item
 // 2. User ID ->  from "id" field of data item
 
