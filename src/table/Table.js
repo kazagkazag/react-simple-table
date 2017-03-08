@@ -56,6 +56,7 @@ export default class Table extends Component {
                     <Head
                         columns={this.props.columns}
                         sorterComponent={this.props.sorterComponent}
+                        onSort={this.props.onSort}
                     />
                     <Body
                         columns={this.props.columns}
@@ -75,7 +76,8 @@ Table.propTypes = {
     details: PropTypes.func,
     sorterComponent: PropTypes.func,
     maxHeight: PropTypes.string,
-    onScrollToBottom: PropTypes.func
+    onScrollToBottom: PropTypes.func,
+    onSort: PropTypes.func
 };
 
 Table.childContextTypes = {

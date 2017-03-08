@@ -26,7 +26,10 @@ class App extends Component {
                 {
                     title: "Last column",
                     component: (user) => {
-                        return <button>Delete {user.name}</button>
+                        return <button onClick={event => {
+                            event.stopPropagation();
+                            console.log(event);
+                        }}>Delete {user.name}</button>
                     }
                 }
             ]}
@@ -67,8 +70,9 @@ class App extends Component {
                 return <p className="details">Item: {item.id} {item.name}</p>;
             }}
             sorterComponent={(sorted) => <span>{sorted}</span>}
-            maxHeight="120px"
+            maxHeight="180px"
             onScrollToBottom={(event) => console.log(event)}
+            onSort={() => console.log("Sorting!")}
         />
       </div>
     );
