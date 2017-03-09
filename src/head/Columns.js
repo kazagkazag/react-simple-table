@@ -2,15 +2,22 @@ import React, {PropTypes} from "react";
 import Column from "./Column";
 import sid from "shortid";
 
-export default function Columns({columns, sorterComponent, onSort}) {
+export default function Columns(props) {
     return (
         <tr>
-            {getColumns(columns, sorterComponent, onSort)}
+            {getColumns(props)}
         </tr>
     );
 }
 
-function getColumns(columns, sorterComponent, onSort) {
+function getColumns(columnsDefinitions) {
+    const {
+        columns,
+        sorterComponent,
+        onSort,
+        columnClassName
+    } = columnsDefinitions;
+
     return columns && columns.length ? columns.map(column => {
 
             column.sorterComponent = sorterComponent;
@@ -18,6 +25,7 @@ function getColumns(columns, sorterComponent, onSort) {
 
             return (
                 <Column
+                    className={columnClassName}
                     key={sid.generate()}
                     column={column}
                 />
@@ -29,5 +37,6 @@ function getColumns(columns, sorterComponent, onSort) {
 Columns.propTypes = {
     columns: PropTypes.array,
     sorterComponent: PropTypes.func,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
+    columnClassName: PropTypes.string
 };

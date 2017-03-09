@@ -21,12 +21,23 @@ describe("Table", () => {
         expect(wrapper.find(Body)).to.have.length(1);
     });
 
-    it("should render table with basic class name", () => {
+    it("should render table with custom class name", () => {
+        const columns = [
+            {
+                title: "Column1"
+            },
+            {
+                title: "Column2"
+            }
+        ];
+        const className = "my-table";
         const newProps = Object.assign({}, props, {
-            className: "my-table"
+            className,
+            columns
         });
-        const wrapper = shallow(<Table {...newProps}/>);
-        expect(wrapper.find("table").hasClass("my-table")).to.equal(true);
+        const wrapper = mount(<Table {...newProps}/>);
+        expect(wrapper.find("table").hasClass(className)).to.equal(true);
+        expect(wrapper.find("th").at(0).hasClass(`${className}_th`)).to.equal(true);
     });
 
     it("should render table with max height if specified", () => {

@@ -1,9 +1,10 @@
 import React, {PropTypes} from "react";
 import Sorter from "./Sorter";
 
-export default function Column({column}) {
+export default function Column({column, className}) {
     const props = {
-        key: column.title
+        key: column.title,
+        className
     };
 
     if(column.onSort) {
@@ -26,5 +27,6 @@ export default function Column({column}) {
 }
 
 Column.propTypes = {
-    column: PropTypes.object
+    column: PropTypes.object,
+    className: PropTypes.string
 };

@@ -3,6 +3,7 @@ import Columns from "./Columns";
 
 export default function Head({columns = [], sorterComponent, onSort}, {className}) {
     const headClassName = `${className}_head`;
+    const columnClassName = `${className}_th`;
 
     return (
         <thead className={headClassName}>
@@ -10,6 +11,7 @@ export default function Head({columns = [], sorterComponent, onSort}, {className
                 columns={columns}
                 sorterComponent={sorterComponent}
                 onSort={onSort}
+                columnClassName={columnClassName}
             />
         </thead>
     );
