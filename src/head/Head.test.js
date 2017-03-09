@@ -10,14 +10,20 @@ describe("Head", () => {
         columns: []
     };
 
+    const options = {
+        context: {
+            semantic: true
+        }
+    };
+
     it("should render table header with basic markup", () => {
-        const wrapper = mount(<Head />);
+        const wrapper = mount(<Head />, options);
 
         expect(wrapper.find("thead")).to.have.length(1);
     });
 
     it("should render no columns if no data provided", () => {
-        const wrapper = mount(<Head {...props} />);
+        const wrapper = mount(<Head {...props} />, options);
 
         expect(wrapper.find("th")).to.have.length(0);
     });
@@ -34,7 +40,7 @@ describe("Head", () => {
         const newProps = Object.assign({}, props, {
             columns
         });
-        const wrapper = mount(<Head {...newProps} />);
+        const wrapper = mount(<Head {...newProps} />, options);
         const columnsElements = wrapper.find("th");
 
         expect(columnsElements).to.have.length(columns.length);
@@ -56,7 +62,7 @@ describe("Head", () => {
         const newProps = Object.assign({}, props, {
             columns
         });
-        const wrapper = mount(<Head {...newProps} />);
+        const wrapper = mount(<Head {...newProps} />, options);
         const columnsElements = wrapper.find("th");
 
         expect(columnsElements).to.have.length(columns.length);
@@ -80,7 +86,7 @@ describe("Head", () => {
             columns,
             sorterComponent
         });
-        const wrapper = mount(<Head {...newProps} />);
+        const wrapper = mount(<Head {...newProps} />, options);
         const columnsElements = wrapper.find("th");
 
         expect(columnsElements).to.have.length(columns.length);
@@ -106,7 +112,7 @@ describe("Head", () => {
             sorterComponent,
             onSort
         });
-        const wrapper = mount(<Head {...newProps} />);
+        const wrapper = mount(<Head {...newProps} />, options);
         const columnsElements = wrapper.find("th");
 
         columnsElements.at(0).simulate("click");

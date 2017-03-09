@@ -1,11 +1,12 @@
 import React, {PropTypes} from "react";
 import Sorter from "./Sorter";
 
-export default function Column({column, className}) {
+export default function Column({column}, {className, semantic}) {
     const props = {
         key: column.title,
-        className
+        className: `${className}_th`
     };
+    const Element = semantic? "th" : "div";
 
     if(column.onSort) {
         props.onClick = () => {
@@ -14,7 +15,7 @@ export default function Column({column, className}) {
     }
 
     return (
-        <th {...props}>
+        <Element {...props}>
 
             {column.title}
 
@@ -22,11 +23,16 @@ export default function Column({column, className}) {
                 sorted={column.sorted}
                 sorterComponent={column.sorterComponent}
             />
-        </th>
+        </Element>
     );
 }
 
 Column.propTypes = {
     column: PropTypes.object,
     className: PropTypes.string
+};
+
+Column.contextTypes = {
+    className: PropTypes.string,
+    semantic: PropTypes.bool
 };

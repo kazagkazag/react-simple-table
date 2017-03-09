@@ -40,6 +40,41 @@ describe("Table", () => {
         expect(wrapper.find("th").at(0).hasClass(`${className}_th`)).to.equal(true);
     });
 
+    it("should render table in non semantic mode, with divs instead of table elements", () => {
+        const columns = [
+            {
+                title: "Column1"
+            },
+            {
+                title: "Column2"
+            }
+        ];
+        const data = [
+            {
+                id: 0,
+                title: "Some title"
+            },
+            {
+                id: 1,
+                title: "Another title"
+            }
+        ];
+        const className = "my-table";
+        const newProps = Object.assign({}, props, {
+            className,
+            columns,
+            data,
+            semantic: false
+        });
+        const wrapper = mount(<Table {...newProps}/>);
+        expect(wrapper.find(`.${className}`).type()).to.equal("div");
+        expect(wrapper.find(`.${className}_th`).at(0).type()).to.equal("div");
+        expect(wrapper.find(`.${className}_head`).at(0).type()).to.equal("div");
+        expect(wrapper.find(`.${className}_body`).at(0).type()).to.equal("div");
+        expect(wrapper.find(`.${className}_row`).at(0).type()).to.equal("div");
+        expect(wrapper.find(`.${className}_cell`).at(0).type()).to.equal("div");
+    });
+
     it("should render table with max height if specified", () => {
         const newProps = Object.assign({}, props, {
             className: "my-table",
@@ -56,6 +91,11 @@ describe("Table", () => {
             maxHeight: "200px"
         });
         const wrapper = mount(<Table {...newProps}/>);
+        wrapper.instance().container = {
+            clientHeight: 100,
+            scrollTop: 100,
+            scrollHeight: 200
+        };
 
         wrapper.simulate("scroll", {
             deltaY: 201
@@ -70,6 +110,11 @@ describe("Table", () => {
             maxHeight: "200px"
         });
         const wrapper = mount(<Table {...newProps}/>);
+        wrapper.instance().container = {
+            clientHeight: 100,
+            scrollTop: 99,
+            scrollHeight: 200
+        };
 
         wrapper.simulate("scroll", {
             deltaY: 199

@@ -1,19 +1,18 @@
 import React, {PropTypes} from "react";
 import Columns from "./Columns";
 
-export default function Head({columns = [], sorterComponent, onSort}, {className}) {
+export default function Head({columns = [], sorterComponent, onSort}, {className, semantic}) {
     const headClassName = `${className}_head`;
-    const columnClassName = `${className}_th`;
+    const Element = semantic ? "thead" : "div";
 
     return (
-        <thead className={headClassName}>
+        <Element className={headClassName}>
             <Columns
                 columns={columns}
                 sorterComponent={sorterComponent}
                 onSort={onSort}
-                columnClassName={columnClassName}
             />
-        </thead>
+        </Element>
     );
 }
 
@@ -24,5 +23,6 @@ Head.propTypes = {
 };
 
 Head.contextTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    semantic: PropTypes.bool
 };

@@ -127,10 +127,11 @@ export default class Body extends Component {
 
     render() {
         const className = `${this.context.className}_body`;
+        const Element = this.context.semantic ? "tbody" : "div";
         return (
-            <tbody className={className}>
+            <Element className={className}>
                 {this.renderRows()}
-            </tbody>
+            </Element>
         );
     }
 }
@@ -142,5 +143,6 @@ Body.propTypes = {
 };
 
 Body.contextTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    semantic: PropTypes.bool
 };

@@ -15,6 +15,8 @@ export default class Table extends Component {
 
     onScroll(event) {
         const scrolledToTheBottom = this.container.clientHeight + this.container.scrollTop >= this.container.scrollHeight;
+        console.log(this.container.clientHeight, this.container.scrollTop, this.container.scrollHeight);
+        console.log(this.container)
 
         if(scrolledToTheBottom) {
             this.props.onScrollToBottom(event);
@@ -23,7 +25,8 @@ export default class Table extends Component {
 
     getChildContext() {
         return {
-            className: this.props.className
+            className: this.props.className,
+            semantic: this.props.semantic
         };
     }
 
@@ -45,6 +48,8 @@ export default class Table extends Component {
     }
 
     render() {
+        const Element = this.props.semantic ? "table" : "div";
+
         return (
             <div
                 className={`${this.props.className}-container`}
@@ -52,7 +57,7 @@ export default class Table extends Component {
                 onScroll={this.onScroll}
                 ref={element => this.container = element}
             >
-                <table className={this.props.className}>
+                <Element className={this.props.className}>
                     <Head
                         columns={this.props.columns}
                         sorterComponent={this.props.sorterComponent}
@@ -63,7 +68,7 @@ export default class Table extends Component {
                         data={this.props.data}
                         details={this.props.details}
                     />
-                </table>
+                </Element>
             </div>
         )
     }
@@ -77,13 +82,16 @@ Table.propTypes = {
     sorterComponent: PropTypes.func,
     maxHeight: PropTypes.string,
     onScrollToBottom: PropTypes.func,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
+    semantic: PropTypes.bool
 };
 
 Table.childContextTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    semantic: PropTypes.bool
 };
 
 Table.defaultProps = {
-    className: "table"
+    className: "table",
+    semantic: true
 };

@@ -9,14 +9,20 @@ describe("Body", () => {
         data: []
     };
 
+    const options = {
+        context: {
+            semantic: true
+        }
+    };
+
     it("should render table body with basic markup", () => {
-        const wrapper = shallow(<Body />);
+        const wrapper = shallow(<Body />, options);
 
         expect(wrapper.find("tbody")).to.have.length(1);
     });
 
     it("should render no rows if no data specified", () => {
-        const wrapper = shallow(<Body />);
+        const wrapper = shallow(<Body />, options);
 
         expect(wrapper.find("tr")).to.have.length(0);
     });
@@ -44,7 +50,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = mount(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>, options);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -69,7 +75,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = mount(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>, options);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -97,7 +103,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = mount(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>, options);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -132,7 +138,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = mount(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>, options);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -165,7 +171,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = mount(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>, options);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(2);
@@ -204,7 +210,7 @@ describe("Body", () => {
             columns,
             details
         });
-        const wrapper = mount(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>, options);
         const secondRow = wrapper.find("tr").at(1);
         const secondCellInSecondRow = secondRow.find("td").at(1);
 
@@ -248,7 +254,7 @@ describe("Body", () => {
             columns,
             details
         });
-        const wrapper = mount(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>, options);
 
         let secondRow = wrapper.find("tr").at(1);
         let secondCellInSecondRow = secondRow.find("td").at(1);
@@ -290,7 +296,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = mount(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>, options);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(3);
@@ -325,7 +331,7 @@ describe("Body", () => {
             data,
             columns
         });
-        const wrapper = mount(<Body {...newProps}/>);
+        const wrapper = mount(<Body {...newProps}/>, options);
         const rows = wrapper.find("tr");
 
         expect(rows).to.have.length(3);

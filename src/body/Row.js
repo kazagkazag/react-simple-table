@@ -5,6 +5,7 @@ import sid from "shortid";
 function Row(props, context) {
     const rowClassName = `${context.className}_row`;
     const cellBaseClassName = `${context.className}_cell`;
+    const Element = context.semantic ? "tr" : "div";
 
     const cells = props.cells.map((cell, key) => {
         const cellAdditionalClassName = cell.className ? cell.className : "";
@@ -22,12 +23,12 @@ function Row(props, context) {
     });
 
     return (
-        <tr
+        <Element
             className={rowClassName}
             key={sid.generate()}
         >
             {cells}
-        </tr>
+        </Element>
     );
 }
 
@@ -36,7 +37,8 @@ Row.propTypes = {
 };
 
 Row.contextTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    semantic: PropTypes.bool
 };
 
 export default Row;
