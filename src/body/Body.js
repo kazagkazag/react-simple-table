@@ -1,7 +1,8 @@
 import React, {PropTypes, Component} from "react";
 import Row from "./Row";
+import addClassName from "../enhacements/addClassName";
 
-export default class Body extends Component {
+export class Body extends Component {
 
     constructor(props) {
         super(props);
@@ -126,10 +127,9 @@ export default class Body extends Component {
     }
 
     render() {
-        const className = `${this.context.className}_body`;
         const Element = this.context.semantic ? "tbody" : "div";
         return (
-            <Element className={className}>
+            <Element className={this.props.className}>
                 {this.renderRows()}
             </Element>
         );
@@ -139,10 +139,12 @@ export default class Body extends Component {
 Body.propTypes = {
     columns: PropTypes.array,
     data: PropTypes.array,
-    details: PropTypes.func
+    details: PropTypes.func,
+    className: PropTypes.string
 };
 
 Body.contextTypes = {
-    className: PropTypes.string,
     semantic: PropTypes.bool
 };
+
+export default addClassName("_body")(Body);

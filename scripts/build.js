@@ -23,7 +23,7 @@ var stripAnsi = require('strip-ansi');
 var useYarn = pathExists.sync(paths.yarnLockFile);
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
+if (!checkRequiredFiles([paths.appIndexJs])) {
   process.exit(1);
 }
 
@@ -55,21 +55,7 @@ function getDifferenceLabel(currentSize, previousSize) {
 // First, read the current file sizes in build directory.
 // This lets us display how much they changed later.
 recursive(paths.appBuild, (err, fileNames) => {
-  var previousSizeMap = (fileNames || [])
-    .filter(fileName => /\.(js|css)$/.test(fileName))
-    .reduce((memo, fileName) => {
-      var contents = fs.readFileSync(fileName);
-      var key = removeFileNameHash(fileName);
-      memo[key] = gzipSize(contents);
-      return memo;
-    }, {});
-
-  // Remove all content but keep the directory so that
-  // if you're in it, you don't end up in Trash
-  fs.unlinkSync(paths.appBuildFile);
-
-  // Start the webpack build
-  build(previousSizeMap);
+  build();
 });
 
 // Print a detailed summary of build files.

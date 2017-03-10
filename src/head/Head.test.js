@@ -1,7 +1,7 @@
 import React from "react";
 import {expect} from "chai";
 import {mount} from "enzyme";
-import Head from "./Head";
+import {Head} from "./Head";
 import sinon from "sinon";
 
 describe("Head", () => {

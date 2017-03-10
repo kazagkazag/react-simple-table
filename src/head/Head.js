@@ -1,12 +1,12 @@
 import React, {PropTypes} from "react";
 import Columns from "./Columns";
+import addClassName from "../enhacements/addClassName";
 
-export default function Head({columns = [], sorterComponent, onSort}, {className, semantic}) {
-    const headClassName = `${className}_head`;
+export function Head({columns = [], sorterComponent, onSort, className}, { semantic}) {
     const Element = semantic ? "thead" : "div";
 
     return (
-        <Element className={headClassName}>
+        <Element className={className}>
             <Columns
                 columns={columns}
                 sorterComponent={sorterComponent}
@@ -26,3 +26,5 @@ Head.contextTypes = {
     className: PropTypes.string,
     semantic: PropTypes.bool
 };
+
+export default addClassName("_head")(Head);

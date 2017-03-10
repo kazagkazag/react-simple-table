@@ -1,10 +1,11 @@
 import React, {PropTypes} from "react";
 import Column from "./Column";
 import sid from "shortid";
+import addClassName from "../enhacements/addClassName";
 
-export default function Columns(props) {
+export function Columns(props) {
     return (
-        <tr>
+        <tr className={props.className}>
             {getColumns(props)}
         </tr>
     );
@@ -38,5 +39,8 @@ Columns.propTypes = {
     columns: PropTypes.array,
     sorterComponent: PropTypes.func,
     onSort: PropTypes.func,
-    columnClassName: PropTypes.string
+    columnClassName: PropTypes.string,
+    className: PropTypes.string
 };
+
+export default addClassName("_head-row")(Columns);

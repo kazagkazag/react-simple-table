@@ -1,17 +1,22 @@
 import React, {PropTypes} from "react";
+import addClassName from "../enhacements/addClassName";
 
-function Cell(props, {semantic}) {
-    const {children, ...rest} = props;
+export function Cell(props, {semantic}) {
     const Element = semantic ? "td" : "div";
 
     return (
-        <Element {...rest}>
-            {children}
+        <Element
+            colSpan={props.colSpan}
+            onClick={props.onClick}
+            className={`${props.className} ${props.additionalClassName}`}
+        >
+            {props.children}
         </Element>
     );
 }
 
 Cell.propTypes = {
+    additionalClassName: PropTypes.string,
     className: PropTypes.string,
     colSpan: PropTypes.number,
     onClick: PropTypes.func,
@@ -22,4 +27,4 @@ Cell.contextTypes = {
     semantic: PropTypes.bool
 };
 
-export default Cell;
+export default addClassName("_cell")(Cell);

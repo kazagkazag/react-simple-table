@@ -7,7 +7,7 @@ import sinon from "sinon";
 describe("Cell", () => {
 
     const props = {
-        className: "",
+        additionalClassName: "",
         colSpan: undefined,
         onClick: () => {}
     };
@@ -32,12 +32,12 @@ describe("Cell", () => {
 
     it("should have expected class name", () => {
         const newProps = Object.assign({}, props, {
-            className: "test-class-name"
+            additionalClassName: "test-class-name"
         });
 
         const wrapper = shallow(<Cell {...newProps} />);
 
-        expect(wrapper.hasClass(newProps.className)).to.equal(true);
+        expect(wrapper.html()).to.contains(newProps.additionalClassName);
     });
 
     it("should span across specified number of cells", () => {

@@ -1,10 +1,9 @@
 import React, {PropTypes} from "react";
-import Cell from "./Cell";
 import sid from "shortid";
+import Cell from "./Cell";
+import addClassName from "../enhacements/addClassName";
 
 function Row(props, context) {
-    const rowClassName = `${context.className}_row`;
-    const cellBaseClassName = `${context.className}_cell`;
     const Element = context.semantic ? "tr" : "div";
 
     const cells = props.cells.map((cell, key) => {
@@ -15,7 +14,7 @@ function Row(props, context) {
                 key={key}
                 onClick={cell.onClick}
                 colSpan={cell.colSpan}
-                className={`${cellBaseClassName} ${cellAdditionalClassName}`}
+                additionalClassName={cellAdditionalClassName}
             >
                 {cell.content}
             </Cell>
@@ -24,7 +23,7 @@ function Row(props, context) {
 
     return (
         <Element
-            className={rowClassName}
+            className={props.className}
             key={sid.generate()}
         >
             {cells}
@@ -33,12 +32,12 @@ function Row(props, context) {
 }
 
 Row.propTypes = {
-    cells: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+    cells: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    className: PropTypes.string
 };
 
 Row.contextTypes = {
-    className: PropTypes.string,
     semantic: PropTypes.bool
 };
 
-export default Row;
+export default addClassName("_row")(Row);

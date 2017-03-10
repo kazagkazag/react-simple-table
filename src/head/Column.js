@@ -1,10 +1,11 @@
 import React, {PropTypes} from "react";
 import Sorter from "./Sorter";
+import addClassName from "../enhacements/addClassName";
 
-export default function Column({column}, {className, semantic}) {
+export function Column({column, className}, {semantic}) {
     const props = {
         key: column.title,
-        className: `${className}_th`
+        className
     };
     const Element = semantic? "th" : "div";
 
@@ -33,6 +34,7 @@ Column.propTypes = {
 };
 
 Column.contextTypes = {
-    className: PropTypes.string,
     semantic: PropTypes.bool
 };
+
+export default addClassName("_th")(Column);

@@ -1,7 +1,7 @@
 import React from "react";
 import {expect} from "chai";
 import {shallow, mount} from "enzyme";
-import Body from "./Body";
+import {Body} from "./Body";
 
 describe("Body", () => {
 

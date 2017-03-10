@@ -1,8 +1,8 @@
 import React from "react";
 import {expect} from "chai";
-import {shallow} from "enzyme";
+import {mount} from "enzyme";
 import Row from "./Row";
-import Cell from "./Cell";
+import {Cell} from "./Cell";
 
 describe("Row", () => {
 
@@ -18,7 +18,7 @@ describe("Row", () => {
                 }
             ]
         });
-        const wrapper = shallow(<Row {...newProps}/>);
+        const wrapper = mount(<Row {...newProps}/>);
 
         expect(wrapper.find(Cell)).to.have.length(1);
     });
