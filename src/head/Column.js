@@ -1,13 +1,15 @@
 import React, {PropTypes} from "react";
-import Sorter from "./Sorter";
-import addClassName from "../enhacements/addClassName";
 
-export function Column({column, className}, {semantic}) {
+import Sorter from "./Sorter";
+
+import addClassName from "../enhacements/addClassName";
+import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
+
+export function Column({column, className, Element}) {
     const props = {
         key: column.title,
         className
     };
-    const Element = semantic? "th" : "div";
 
     if(column.onSort) {
         props.onClick = () => {
@@ -30,11 +32,10 @@ export function Column({column, className}, {semantic}) {
 
 Column.propTypes = {
     column: PropTypes.object,
-    className: PropTypes.string
+    className: PropTypes.string,
+    Element: PropTypes.string
 };
 
-Column.contextTypes = {
-    semantic: PropTypes.bool
-};
-
-export default addClassName("_th")(Column);
+export default provideCorrectDOMNode("th")(
+    addClassName("_th")(Column)
+);

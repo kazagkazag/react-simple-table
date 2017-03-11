@@ -1,6 +1,9 @@
 import React, {PropTypes, Component} from "react";
+
 import Row from "./Row";
+
 import addClassName from "../enhacements/addClassName";
+import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
 
 export class Body extends Component {
 
@@ -127,7 +130,8 @@ export class Body extends Component {
     }
 
     render() {
-        const Element = this.context.semantic ? "tbody" : "div";
+        const {Element} = this.props;
+
         return (
             <Element className={this.props.className}>
                 {this.renderRows()}
@@ -140,11 +144,10 @@ Body.propTypes = {
     columns: PropTypes.array,
     data: PropTypes.array,
     details: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    Element: PropTypes.string
 };
 
-Body.contextTypes = {
-    semantic: PropTypes.bool
-};
-
-export default addClassName("_body")(Body);
+export default provideCorrectDOMNode("tbody")(
+    addClassName("_body")(Body)
+);

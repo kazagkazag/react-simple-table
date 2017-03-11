@@ -1,10 +1,17 @@
 import React, {PropTypes} from "react";
+
 import Columns from "./Columns";
+
 import addClassName from "../enhacements/addClassName";
+import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
 
-export function Head({columns = [], sorterComponent, onSort, className}, { semantic}) {
-    const Element = semantic ? "thead" : "div";
-
+export function Head({
+    columns = [],
+    sorterComponent,
+    onSort,
+    className,
+    Element
+}) {
     return (
         <Element className={className}>
             <Columns
@@ -19,12 +26,13 @@ export function Head({columns = [], sorterComponent, onSort, className}, { seman
 Head.propTypes = {
     columns: PropTypes.array,
     sorterComponent: PropTypes.func,
-    onSort: PropTypes.func
-};
-
-Head.contextTypes = {
+    onSort: PropTypes.func,
     className: PropTypes.string,
-    semantic: PropTypes.bool
+    Element: PropTypes.string
 };
 
-export default addClassName("_head")(Head);
+export default provideCorrectDOMNode("thead")(
+    addClassName("_head")(
+        Head
+    )
+);

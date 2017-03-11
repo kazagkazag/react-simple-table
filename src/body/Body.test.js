@@ -1,7 +1,8 @@
 import React from "react";
 import {expect} from "chai";
-import {shallow, mount} from "enzyme";
-import {Body} from "./Body";
+import {mount} from "enzyme";
+import Body from "./Body";
+import Row from "./Row";
 
 describe("Body", () => {
 
@@ -16,13 +17,13 @@ describe("Body", () => {
     };
 
     it("should render table body with basic markup", () => {
-        const wrapper = shallow(<Body />, options);
+        const wrapper = mount(<Body />, options);
 
         expect(wrapper.find("tbody")).to.have.length(1);
     });
 
     it("should render no rows if no data specified", () => {
-        const wrapper = shallow(<Body />, options);
+        const wrapper = mount(<Body />, options);
 
         expect(wrapper.find("tr")).to.have.length(0);
     });
@@ -51,7 +52,7 @@ describe("Body", () => {
             columns
         });
         const wrapper = mount(<Body {...newProps}/>, options);
-        const rows = wrapper.find("tr");
+        const rows = wrapper.find(Row);
 
         expect(rows).to.have.length(2);
         expect(rows.at(0).find("td").at(0).text()).to.equal(data[0].title);
@@ -76,7 +77,7 @@ describe("Body", () => {
             columns
         });
         const wrapper = mount(<Body {...newProps}/>, options);
-        const rows = wrapper.find("tr");
+        const rows = wrapper.find(Row);
 
         expect(rows).to.have.length(2);
         expect(rows.at(0).find("td").at(0).text()).to.equal(data[0][1]);
@@ -104,7 +105,7 @@ describe("Body", () => {
             columns
         });
         const wrapper = mount(<Body {...newProps}/>, options);
-        const rows = wrapper.find("tr");
+        const rows = wrapper.find(Row);
 
         expect(rows).to.have.length(2);
         expect(rows.at(0).find("td").at(0).text()).to.equal(data[0][1]);
@@ -139,7 +140,7 @@ describe("Body", () => {
             columns
         });
         const wrapper = mount(<Body {...newProps}/>, options);
-        const rows = wrapper.find("tr");
+        const rows = wrapper.find(Row);
 
         expect(rows).to.have.length(2);
         expect(rows.at(0).find("td").at(0).find("p")).to.have.length(1);
@@ -172,7 +173,7 @@ describe("Body", () => {
             columns
         });
         const wrapper = mount(<Body {...newProps}/>, options);
-        const rows = wrapper.find("tr");
+        const rows = wrapper.find(Row);
 
         expect(rows).to.have.length(2);
         expect(rows.at(0).find("td").at(0).find("p")).to.have.length(1);
@@ -211,7 +212,7 @@ describe("Body", () => {
             details
         });
         const wrapper = mount(<Body {...newProps}/>, options);
-        const secondRow = wrapper.find("tr").at(1);
+        const secondRow = wrapper.find(Row).at(1);
         const secondCellInSecondRow = secondRow.find("td").at(1);
 
         secondCellInSecondRow.simulate("click");
@@ -256,11 +257,11 @@ describe("Body", () => {
         });
         const wrapper = mount(<Body {...newProps}/>, options);
 
-        let secondRow = wrapper.find("tr").at(1);
+        let secondRow = wrapper.find(Row).at(1);
         let secondCellInSecondRow = secondRow.find("td").at(1);
         secondCellInSecondRow.simulate("click");
 
-        secondRow = wrapper.find("tr").at(1);
+        secondRow = wrapper.find(Row).at(1);
         secondCellInSecondRow = secondRow.find("td").at(1);
         secondCellInSecondRow.simulate("click");
 
@@ -297,7 +298,7 @@ describe("Body", () => {
             columns
         });
         const wrapper = mount(<Body {...newProps}/>, options);
-        const rows = wrapper.find("tr");
+        const rows = wrapper.find(Row);
 
         expect(rows).to.have.length(3);
         expect(rows.at(1).find("td").at(0).text()).to.equal(data[1].content);
@@ -332,7 +333,7 @@ describe("Body", () => {
             columns
         });
         const wrapper = mount(<Body {...newProps}/>, options);
-        const rows = wrapper.find("tr");
+        const rows = wrapper.find(Row);
 
         expect(rows).to.have.length(3);
         expect(rows.at(1).find("td").at(0).text()).to.equal(subheaderText);

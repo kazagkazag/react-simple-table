@@ -1,10 +1,13 @@
 import React, {PropTypes} from "react";
 import sid from "shortid";
-import Cell from "./Cell";
-import addClassName from "../enhacements/addClassName";
 
-function Row(props, context) {
-    const Element = context.semantic ? "tr" : "div";
+import Cell from "./Cell";
+
+import addClassName from "../enhacements/addClassName";
+import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
+
+function Row(props) {
+    const {Element} = props;
 
     const cells = props.cells.map((cell, key) => {
         const cellAdditionalClassName = cell.className ? cell.className : "";
@@ -33,11 +36,10 @@ function Row(props, context) {
 
 Row.propTypes = {
     cells: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    className: PropTypes.string
+    className: PropTypes.string,
+    Element: PropTypes.string
 };
 
-Row.contextTypes = {
-    semantic: PropTypes.bool
-};
-
-export default addClassName("_row")(Row);
+export default provideCorrectDOMNode("tr")(
+    addClassName("_row")(Row)
+);

@@ -1,8 +1,10 @@
 import React, {PropTypes} from "react";
-import addClassName from "../enhacements/addClassName";
 
-export function Cell(props, {semantic}) {
-    const Element = semantic ? "td" : "div";
+import addClassName from "../enhacements/addClassName";
+import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
+
+export function Cell(props) {
+    const {Element} = props
 
     return (
         <Element
@@ -23,8 +25,6 @@ Cell.propTypes = {
     children: PropTypes.node
 };
 
-Cell.contextTypes = {
-    semantic: PropTypes.bool
-};
-
-export default addClassName("_cell")(Cell);
+export default provideCorrectDOMNode("td")(
+    addClassName("_cell")(Cell)
+);
