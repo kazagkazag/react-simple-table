@@ -1917,20 +1917,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: "getCell",
 	        value: function getCell(column, row) {
-	            var _this3 = this;
-	
 	            var cellProperties = {};
+	            var toggler = this.toggleDetails.bind(this, row);
 	
-	            if (column.component && typeof column.component === "function") {
-	                cellProperties.content = column.component(row);
-	            } else {
-	                cellProperties.content = row[column.field];
-	            }
+	            cellProperties.content = column.component && typeof column.component === "function" ? column.component(row, toggler) : row[column.field];
 	
 	            if (this.props.details) {
-	                cellProperties.onClick = function () {
-	                    _this3.toggleDetails(row);
-	                };
+	                cellProperties.onClick = toggler;
 	            }
 	
 	            return cellProperties;
@@ -1938,18 +1931,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: "getCellsForRowsInColumnsOrder",
 	        value: function getCellsForRowsInColumnsOrder() {
-	            var _this4 = this;
+	            var _this3 = this;
 	
 	            var data = this.state.data;
 	
 	            return data.map(function (rowData, index) {
 	                if (rowData.isRowWithDetails) {
 	                    var dataOfPreviousRow = data[index - 1];
-	                    return _this4.getDetailsRowCells(dataOfPreviousRow);
+	                    return _this3.getDetailsRowCells(dataOfPreviousRow);
 	                } else if (rowData.fullRow) {
-	                    return _this4.getFullRowCells(rowData);
+	                    return _this3.getFullRowCells(rowData);
 	                } else {
-	                    return _this4.getStandardRowCells(rowData);
+	                    return _this3.getStandardRowCells(rowData);
 	                }
 	            });
 	        }

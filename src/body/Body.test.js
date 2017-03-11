@@ -339,4 +339,55 @@ describe("Body", () => {
         expect(rows.at(1).find("td").at(0).text()).to.equal(subheaderText);
     });
 
+    it("should show details row after using handler provided to the component function", () => {
+        const data = [
+            {
+                id: 0,
+                title: "Some title"
+            },
+            {
+                id: 1,
+                title: "Another title"
+            }
+        ];
+        const buttonClassName = "custom-button";
+        const columns = [
+            {
+                field: "title",
+                component: (item = {}, toggleRowDetails) => {
+                    return (
+                        <button
+                            className={buttonClassName}
+                            onClick={event => {
+                                event.stopPropagation();
+                                toggleRowDetails();
+                            }}
+                        >
+                            Click me to show details
+                        </button>
+                    );
+                }
+            },
+            {
+                field: "id"
+            }
+        ];
+        const details = (item) => {
+            return <h1 className="details">Details: {item.id} {item.title}</h1>;
+        };
+        const newProps = Object.assign({}, props, {
+            data,
+            columns,
+            details
+        });
+        const wrapper = mount(<Body {...newProps}/>, options);
+        const button = wrapper.find(`.${buttonClassName}`).at(0);
+
+        button.simulate("click");
+
+        const detailsContent = wrapper.find(".details");
+
+        expect(detailsContent).to.have.length(1);
+    });
+
 });

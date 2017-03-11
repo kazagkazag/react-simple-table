@@ -66,7 +66,7 @@ export class Body extends Component {
         const contentType = typeof dataOfClickedRow.content;
         let content = null;
 
-        if(contentType === "function") {
+        if (contentType === "function") {
             content = dataOfClickedRow.content();
         } else {
             content = dataOfClickedRow.content;
@@ -85,17 +85,14 @@ export class Body extends Component {
 
     getCell(column, row) {
         const cellProperties = {};
+        const toggler = this.toggleDetails.bind(this, row);
 
-        if (column.component && typeof column.component === "function") {
-            cellProperties.content = column.component(row);
-        } else {
-            cellProperties.content = row[column.field];
-        }
+        cellProperties.content = column.component && typeof column.component === "function"
+            ? column.component(row, toggler)
+            : row[column.field];
 
         if (this.props.details) {
-            cellProperties.onClick = () => {
-                this.toggleDetails(row);
-            };
+            cellProperties.onClick = toggler;
         }
 
         return cellProperties;
@@ -108,7 +105,7 @@ export class Body extends Component {
             if (rowData.isRowWithDetails) {
                 const dataOfPreviousRow = data[index - 1];
                 return this.getDetailsRowCells(dataOfPreviousRow);
-            } else if(rowData.fullRow) {
+            } else if (rowData.fullRow) {
                 return this.getFullRowCells(rowData);
             } else {
                 return this.getStandardRowCells(rowData);
