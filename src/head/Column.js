@@ -2,8 +2,8 @@ import React, {PropTypes} from "react";
 
 import Sorter from "./Sorter";
 
-import addClassName from "../enhacements/addClassName";
-import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
+import addClassName from "../enhancements/addClassName";
+import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
 export function Column({column, className, Element}) {
     const props = {

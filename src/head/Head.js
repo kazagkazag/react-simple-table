@@ -2,8 +2,8 @@ import React, {PropTypes} from "react";
 
 import Columns from "./Columns";
 
-import addClassName from "../enhacements/addClassName";
-import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
+import addClassName from "../enhancements/addClassName";
+import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
 export function Head({
     columns = [],

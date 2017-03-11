@@ -3,8 +3,8 @@ import sid from "shortid";
 
 import Column from "./Column";
 
-import addClassName from "../enhacements/addClassName";
-import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
+import addClassName from "../enhancements/addClassName";
+import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
 export function Columns(props) {
     const {Element} = props;

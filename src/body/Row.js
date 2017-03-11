@@ -3,8 +3,8 @@ import sid from "shortid";
 
 import Cell from "./Cell";
 
-import addClassName from "../enhacements/addClassName";
-import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
+import addClassName from "../enhancements/addClassName";
+import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
 function Row(props) {
     const {Element} = props;

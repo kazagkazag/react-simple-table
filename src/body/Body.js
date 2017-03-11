@@ -2,8 +2,8 @@ import React, {PropTypes, Component} from "react";
 
 import Row from "./Row";
 
-import addClassName from "../enhacements/addClassName";
-import provideCorrectDOMNode from "../enhacements/provideCorrectDOMNode";
+import addClassName from "../enhancements/addClassName";
+import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
 export class Body extends Component {
 
