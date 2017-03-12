@@ -5,14 +5,18 @@ with basic functionality.
 
 ## Usage
 
+This compoment is not available via npm, so you have to add this line to your
+package.json in devDependencies section:
 ```
-npm install --save-dev react-simple-table
+"react-simple-table": "kazagkazag/react-simple-table"
 ```
+
+Now you can use it in your project:
 
 ```jsx
 // somewhere in your components...
 
-import {Table} from "react-simple-table";
+import Table from "react-simple-table";
 
 <Table {...props} />
 ```
@@ -22,6 +26,15 @@ import {Table} from "react-simple-table";
 ### `className` (string) 
 Base class name. All components within table will inherit from that
 base class and add some sufix to it (according to the BEM methodology).
+
+Suffixes:
+* `-container` for `table` container
+* `_head` for `thead`
+* `_head-row` for row in `thead`
+* `_th` for `th`
+* `_body` for `tbody`
+* `_row` for row in `tbody`
+* `_cell` for `td`
 
 ### `columns` (array) 
 List of objects. Every object is a definition of column in your table.
@@ -41,7 +54,10 @@ columns cells, this will not sort your data!
 #### `columns.component` (function) 
 If you want to specify column unrelated to
 specified data, for example column with available actions of item, 
-you can use this function. It accepts one parameter - data of current row.
+you can use this function. It accepts two parameters "
+* data of current row
+* toggler function - if `details` props is specified for `Table`, then this function enables
+toggling details row
 
 ### `data` (array) 
 List of objects or lists. Every item represents one row
@@ -68,6 +84,13 @@ specified then entire table is wrapped in div with that "max-height" applied.
 ### `onScrollToBottom` (function) 
 Function fired after user scrolled to the bottom of the table. 
 Takes one argument - react event.
+
+### `onSort` (function)
+Function fired after click on `th` element. Takes one argument - object from `columns` of clicked column.
+
+### `sematinc` (boolean)
+Default: `true`. If `false`, table will render with non semantic markup - `divs` will be use instead of all
+HTML table elements.
 
 ## Examples
 
