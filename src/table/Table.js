@@ -15,8 +15,6 @@ export default class Table extends Component {
 
     onScroll(event) {
         const scrolledToTheBottom = this.container.clientHeight + this.container.scrollTop >= this.container.scrollHeight;
-        console.log(this.container.clientHeight, this.container.scrollTop, this.container.scrollHeight);
-        console.log(this.container)
 
         if(scrolledToTheBottom) {
             this.props.onScrollToBottom(event);
@@ -67,6 +65,7 @@ export default class Table extends Component {
                         columns={this.props.columns}
                         data={this.props.data}
                         details={this.props.details}
+                        detailsInlined={this.props.detailsInlined}
                     />
                 </Element>
             </div>
@@ -83,7 +82,8 @@ Table.propTypes = {
     maxHeight: PropTypes.string,
     onScrollToBottom: PropTypes.func,
     onSort: PropTypes.func,
-    semantic: PropTypes.bool
+    semantic: PropTypes.bool,
+    detailsInlined: PropTypes.bool
 };
 
 Table.childContextTypes = {
@@ -93,5 +93,6 @@ Table.childContextTypes = {
 
 Table.defaultProps = {
     className: "table",
-    semantic: true
+    semantic: true,
+    detailsInlined: false
 };

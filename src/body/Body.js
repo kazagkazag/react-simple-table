@@ -11,7 +11,8 @@ export class Body extends Component {
         super(props);
 
         this.state = {
-            data: this.props.data || []
+            data: this.props.data || [],
+            itemsWithInlinedDetails: []
         };
 
         this.toggleDetails = this.toggleDetails.bind(this);
@@ -23,8 +24,16 @@ export class Body extends Component {
         });
     }
 
-    toggleDetails(item) {
-        const indexOfClickedItem = this.state.data.indexOf(item);
+    toggleDetails(clickedItem) {
+        if(this.props.detailsInlined) {
+            this.toggleInlinedDetailsRow(clickedItem);
+        } else {
+            this.toggleStandaloneDetailsRow(clickedItem);
+        }
+    }
+
+    toggleStandaloneDetailsRow(clickedItem) {
+        const indexOfClickedItem = this.state.data.indexOf(clickedItem);
         const nextItem = this.state.data[indexOfClickedItem + 1];
         const areDetailsCurrentlyVisible = nextItem
             && nextItem.isRowWithDetails;
@@ -33,6 +42,17 @@ export class Body extends Component {
             this.hideDetails(indexOfClickedItem);
         } else {
             this.showDetails(indexOfClickedItem);
+        }
+    }
+
+    toggleInlinedDetailsRow(clickedItem) {
+        const indexOfClickedItem = this.state.data.indexOf(clickedItem);
+        const detailsAlreadyOpened = this.state.itemsWithInlinedDetails.includes(indexOfClickedItem);
+
+        if(detailsAlreadyOpened) {
+            this.hideInlinedDetails(indexOfClickedItem);
+        } else {
+            this.showInlinedDetails(indexOfClickedItem);
         }
     }
 
@@ -51,6 +71,25 @@ export class Body extends Component {
         });
         this.setState({
             data: newData
+        });
+    }
+
+    hideInlinedDetails(indexOfClickedItem) {
+        const indexOfDetailedItems = this.state.itemsWithInlinedDetails.indexOf(indexOfClickedItem);
+        const newDetailedItems = [...this.state.itemsWithInlinedDetails];
+        newDetailedItems.splice(indexOfDetailedItems, 1);
+
+        this.setState({
+            itemsWithInlinedDetails: newDetailedItems
+        });
+    }
+
+    showInlinedDetails(indexOfClickedItem) {
+        const newDetailedItems = [...this.state.itemsWithInlinedDetails];
+        newDetailedItems.push(indexOfClickedItem);
+
+        this.setState({
+            itemsWithInlinedDetails: newDetailedItems
         });
     }
 
@@ -79,6 +118,16 @@ export class Body extends Component {
         }]
     }
 
+    getRowWithInlinedDetailsCells(row) {
+        return [
+            ...this.props.columns.map(column => this.getCell(column, row)),
+            {
+                content: this.props.details(row),
+                className: "with-details with-inlined-details"
+            }
+        ];
+    }
+
     getStandardRowCells(row) {
         return this.props.columns.map(column => this.getCell(column, row));
     }
@@ -102,9 +151,11 @@ export class Body extends Component {
         const data = this.state.data;
 
         return data.map((rowData, index) => {
-            if (rowData.isRowWithDetails) {
+            if (rowData.isRowWithDetails && this.props.detailsInlined !== true) {
                 const dataOfPreviousRow = data[index - 1];
                 return this.getDetailsRowCells(dataOfPreviousRow);
+            } else if (this.state.itemsWithInlinedDetails.indexOf(index) > -1 && this.props.detailsInlined && this.context.semantic === false) {
+                return this.getRowWithInlinedDetailsCells(rowData);
             } else if (rowData.fullRow) {
                 return this.getFullRowCells(rowData);
             } else {
@@ -141,8 +192,17 @@ Body.propTypes = {
     columns: PropTypes.array,
     data: PropTypes.array,
     details: PropTypes.func,
+    detailsInlined: PropTypes.bool,
     className: PropTypes.string,
     Element: PropTypes.string
+};
+
+Body.defaultProps = {
+    detailsInlined: false
+};
+
+Body.contextTypes = {
+    semantic: PropTypes.bool,
 };
 
 export default provideCorrectDOMNode("tbody")(
