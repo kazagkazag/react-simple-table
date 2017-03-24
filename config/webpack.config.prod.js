@@ -28,10 +28,12 @@ const env = getClientEnvironment(publicUrl);
 module.exports = {
     bail: true,
     devtool: 'source-map',
-    entry: [
-        require.resolve('./polyfills'),
-        paths.appIndexJs
-    ],
+    entry: {
+        index: paths.appIndexJs
+    },
+    externals : {
+        react: 'react'
+    },
     output: {
         path: paths.appBuild,
         filename: 'index.js',
@@ -43,7 +45,6 @@ module.exports = {
         fallback: paths.nodePaths,
         extensions: ['.js', '.json', '.jsx', '']
     },
-
     module: {
         preLoaders: [
             {
