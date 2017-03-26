@@ -71,6 +71,10 @@ property name of the item.
 Function that returns component. Takes one argument
 - data from clicked row (in the form specified in `data` list).
 
+### `detailsInlined` (boolean)
+If `true` **and** `semantic` equals `false`, then rows details component will be rendered inside clicked row
+as last child with css class `with-inlined-details`.
+
 ### `sorterComponent` (function) 
 Function that returns component rendered
 in table header. Takes one argument - string specified as `sorted` property
