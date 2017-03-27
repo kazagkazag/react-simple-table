@@ -31,9 +31,6 @@ module.exports = {
     entry: {
         index: paths.appIndexJs
     },
-    externals : {
-        react: 'react'
-    },
     output: {
         path: paths.appBuild,
         filename: 'index.js',

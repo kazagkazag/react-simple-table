@@ -7,7 +7,7 @@
     "enzyme": "^2.7.0",
     "mocha": "^3.2.0",
     "object.entries": "^1.0.4",
-    "react-addons-test-utils": "^15.4.2",
+    "react-addons-test-utils": "15.0.2",
     "shortid": "^2.2.6",
     "sinon": "^1.17.7",
     "autoprefixer": "6.5.1",
@@ -51,11 +51,11 @@
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2",
     "webpack-manifest-plugin": "1.1.0",
-    "whatwg-fetch": "1.0.0"
+    "whatwg-fetch": "1.0.0",
+    "react": "15.0.2",
+    "react-dom": "15.0.2"
   },
   "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
   },
   "scripts": {
     "build": "webpack --config ./config/webpack.config.prod.js",
