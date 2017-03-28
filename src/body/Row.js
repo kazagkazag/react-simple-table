@@ -1,5 +1,4 @@
 import React, {PropTypes} from "react";
-import sid from "shortid";
 
 import Cell from "./Cell";
 
@@ -25,10 +24,7 @@ function Row(props) {
     });
 
     return (
-        <Element
-            className={props.className}
-            key={sid.generate()}
-        >
+        <Element className={props.className}>
             {cells}
         </Element>
     );
