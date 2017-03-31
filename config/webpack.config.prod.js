@@ -1,6 +1,5 @@
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const url = require('url');
 const paths = require('./paths');
@@ -78,11 +77,22 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.DefinePlugin(env),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new ExtractTextPlugin('static/css/[name].[contenthash:8].css'),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        })
     ],
+    externals: {
+        react: {
+            root: 'React',
+            commonjs2: 'react',
+            commonjs: 'react',
+            amd: 'react'
+        },
+        'react-dom': 'react-dom',
+    },
     node: {
         fs: 'empty',
         net: 'empty',
