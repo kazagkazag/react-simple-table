@@ -1,7 +1,6 @@
 import React, {PropTypes, Component} from "react";
 
-import Row from "./Row";
-import {evenRowClassName,oddRowClassName} from "./Row"
+import Row, {evenRowClassName,oddRowClassName} from "./Row"
 
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
@@ -167,8 +166,8 @@ export class Body extends Component {
 
     }
 
-    getClassName(start, index) {
-        return (index - start + 1) % 2 === 0 ? evenRowClassName : oddRowClassName;
+    getClassName(lastFullRowIndex, currentRowIndex) {
+        return (currentRowIndex - lastFullRowIndex + 1) % 2 === 0 ? evenRowClassName : oddRowClassName;
     }
 
     renderRows() {
