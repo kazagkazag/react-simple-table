@@ -5,6 +5,9 @@ import Cell from "./Cell";
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
+export const CLASS1 = "white";
+export const CLASS2 = "black";
+
 function Row(props) {
     const {Element} = props;
 
@@ -24,7 +27,7 @@ function Row(props) {
     });
 
     return (
-        <Element className={props.className}>
+        <Element className={`${props.className} ${props.additionalClassName}`}>
             {cells}
         </Element>
     );

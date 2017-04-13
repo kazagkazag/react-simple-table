@@ -3,6 +3,7 @@ import {expect} from "chai";
 import {mount} from "enzyme";
 import Body from "./Body";
 import Row from "./Row";
+import {CLASS1, CLASS2} from "./Row"
 
 describe("Body", () => {
 
@@ -338,6 +339,64 @@ describe("Body", () => {
         expect(rows).to.have.length(3);
         expect(rows.at(1).find("td").at(0).text()).to.equal(subheaderText);
     });
+
+    it("should render rows class alternately when no subheader rows", () => {
+        new GivenRows([
+            {},
+            {},
+            {},
+            {}]).shouldHaveClasses([CLASS1, CLASS2, CLASS1, CLASS2])
+    });
+
+    it("should restart row class commutativity on subheader row", () => {
+        new GivenRows([
+            {},
+            {fullRow: true},
+            {},
+            {},
+            {},
+        ]).shouldHaveClasses([
+            CLASS1,
+            undefined,
+            CLASS1,
+            CLASS2,
+            CLASS1
+        ]);
+
+        new GivenRows([
+            {},
+            {fullRow: true},
+            {},
+            {fullRow: true},
+            {},
+            {}
+        ]).shouldHaveClasses([
+            CLASS1,
+            undefined,
+            CLASS1,
+            undefined,
+            CLASS1,
+            CLASS2
+        ]);
+    });
+
+    class GivenRows {
+        constructor(rows) {
+            const columns = [{}];
+            const newProps = Object.assign({}, props, {
+                data: rows,
+                columns
+            });
+            const wrapper = mount(<Body {...newProps}/>, options);
+            this.rows = wrapper.find(Row);
+        }
+
+        shouldHaveClasses(classes) {
+            classes.forEach((clazz, index) => {
+                expect(this.rows.at(index).props().className).to.equal(clazz);
+            });
+        }
+    }
 
     it("should show details row after using handler provided to the component function", () => {
         const data = [
