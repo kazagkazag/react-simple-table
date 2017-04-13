@@ -5,8 +5,8 @@ import Cell from "./Cell";
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
-export const CLASS1 = "white";
-export const CLASS2 = "black";
+export const evenRowClassName = "is-even";
+export const oddRowClassName = "is-odd";
 
 function Row(props) {
     const {Element} = props;
@@ -26,8 +26,10 @@ function Row(props) {
         );
     });
 
+    const rowAdditionalClassName = props.additionalClassName ? props.additionalClassName : "";
+
     return (
-        <Element className={`${props.className} ${props.additionalClassName}`}>
+        <Element className={`${props.className} ${rowAdditionalClassName}`}>
             {cells}
         </Element>
     );
@@ -36,6 +38,7 @@ function Row(props) {
 Row.propTypes = {
     cells: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     className: PropTypes.string,
+    additionalClassName: PropTypes.string,
     Element: PropTypes.string
 };
 

@@ -2,8 +2,7 @@ import React from "react";
 import {expect} from "chai";
 import {mount} from "enzyme";
 import Body from "./Body";
-import Row from "./Row";
-import {CLASS1, CLASS2} from "./Row"
+import Row, {evenRowClassName, oddRowClassName} from "./Row"
 
 describe("Body", () => {
 
@@ -345,7 +344,7 @@ describe("Body", () => {
             {},
             {},
             {},
-            {}]).shouldHaveClasses([CLASS1, CLASS2, CLASS1, CLASS2])
+            {}]).shouldHaveClasses([evenRowClassName, oddRowClassName, evenRowClassName, oddRowClassName])
     });
 
     it("should restart row class commutativity on subheader row", () => {
@@ -356,11 +355,11 @@ describe("Body", () => {
             {},
             {},
         ]).shouldHaveClasses([
-            CLASS1,
+            evenRowClassName,
             undefined,
-            CLASS1,
-            CLASS2,
-            CLASS1
+            evenRowClassName,
+            oddRowClassName,
+            evenRowClassName
         ]);
 
         new GivenRows([
@@ -371,12 +370,12 @@ describe("Body", () => {
             {},
             {}
         ]).shouldHaveClasses([
-            CLASS1,
+            evenRowClassName,
             undefined,
-            CLASS1,
+            evenRowClassName,
             undefined,
-            CLASS1,
-            CLASS2
+            evenRowClassName,
+            oddRowClassName
         ]);
     });
 
@@ -393,7 +392,7 @@ describe("Body", () => {
 
         shouldHaveClasses(classes) {
             classes.forEach((clazz, index) => {
-                expect(this.rows.at(index).props().className).to.equal(clazz);
+                expect(this.rows.at(index).props().additionalClassName).to.equal(clazz);
             });
         }
     }
