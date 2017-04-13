@@ -2,7 +2,7 @@ import React from "react";
 import {expect} from "chai";
 import {mount} from "enzyme";
 import Body from "./Body";
-import Row from "./Row";
+import Row, {evenRowClassName, oddRowClassName} from "./Row"
 
 describe("Body", () => {
 
@@ -338,6 +338,64 @@ describe("Body", () => {
         expect(rows).to.have.length(3);
         expect(rows.at(1).find("td").at(0).text()).to.equal(subheaderText);
     });
+
+    it("should render rows class alternately when no subheader rows", () => {
+        new GivenRows([
+            {},
+            {},
+            {},
+            {}]).shouldHaveClasses([evenRowClassName, oddRowClassName, evenRowClassName, oddRowClassName])
+    });
+
+    it("should restart row class commutativity on subheader row", () => {
+        new GivenRows([
+            {},
+            {fullRow: true},
+            {},
+            {},
+            {},
+        ]).shouldHaveClasses([
+            evenRowClassName,
+            undefined,
+            evenRowClassName,
+            oddRowClassName,
+            evenRowClassName
+        ]);
+
+        new GivenRows([
+            {},
+            {fullRow: true},
+            {},
+            {fullRow: true},
+            {},
+            {}
+        ]).shouldHaveClasses([
+            evenRowClassName,
+            undefined,
+            evenRowClassName,
+            undefined,
+            evenRowClassName,
+            oddRowClassName
+        ]);
+    });
+
+    class GivenRows {
+        constructor(rows) {
+            const columns = [{}];
+            const newProps = Object.assign({}, props, {
+                data: rows,
+                columns
+            });
+            const wrapper = mount(<Body {...newProps}/>, options);
+            this.rows = wrapper.find(Row);
+        }
+
+        shouldHaveClasses(classes) {
+            classes.forEach((clazz, index) => {
+                expect(this.rows.at(index).props().additionalClassName).to.equal(clazz);
+            });
+        }
+    }
 
     it("should show details row after using handler provided to the component function", () => {
         const data = [

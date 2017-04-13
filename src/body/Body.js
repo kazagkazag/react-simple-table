@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from "react";
 
-import Row from "./Row";
+import Row, {evenRowClassName,oddRowClassName} from "./Row"
 
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
@@ -149,29 +149,35 @@ export class Body extends Component {
 
     getCellsForRowsInColumnsOrder() {
         const data = this.state.data;
-
+        let lastFullRowIndex = -1;
         return data.map((rowData, index) => {
             if (rowData.isRowWithDetails && this.props.detailsInlined !== true) {
                 const dataOfPreviousRow = data[index - 1];
-                return this.getDetailsRowCells(dataOfPreviousRow);
+                return {cells: this.getDetailsRowCells(dataOfPreviousRow), className: this.getClassName(lastFullRowIndex, index)};
             } else if (this.state.itemsWithInlinedDetails.indexOf(index) > -1 && this.props.detailsInlined && this.context.semantic === false) {
-                return this.getRowWithInlinedDetailsCells(rowData);
+                return {cells: this.getRowWithInlinedDetailsCells(rowData)};
             } else if (rowData.fullRow) {
-                return this.getFullRowCells(rowData);
+                lastFullRowIndex = index;
+                return {cells: this.getFullRowCells(rowData)};
             } else {
-                return this.getStandardRowCells(rowData);
+                return {cells: this.getStandardRowCells(rowData), className: this.getClassName(lastFullRowIndex, index)}
             }
         });
 
     }
 
+    getClassName(lastFullRowIndex, currentRowIndex) {
+        return (currentRowIndex - lastFullRowIndex + 1) % 2 === 0 ? evenRowClassName : oddRowClassName;
+    }
+
     renderRows() {
         return this.getCellsForRowsInColumnsOrder()
-            .map((cells, index) => {
+            .map((row, index) => {
                 return (
                     <Row
                         key={index}
-                        cells={cells}
+                        cells={row.cells}
+                        additionalClassName={row.className}
                     />
                 );
             });
