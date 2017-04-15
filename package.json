@@ -1,7 +1,7 @@
 {
-  "name": "react-simple-table",
-  "version": "0.6.0",
-  "private": true,
+  "name": "@simple-gui/react-simple-table",
+  "version": "0.6.2",
+  "private": false,
   "devDependencies": {
     "chai": "^3.5.0",
     "enzyme": "^2.7.0",

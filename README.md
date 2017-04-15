@@ -5,10 +5,10 @@ with basic functionality.
 
 ## Usage
 
-This compoment is not available via npm, so you have to add this line to your
-package.json in devDependencies section:
+To install this package simply type:
+
 ```
-"react-simple-table": "kazagkazag/react-simple-table"
+npm install --save-dev @simple-gui/react-simple-table
 ```
 
 Now you can use it in your project:
