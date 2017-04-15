@@ -96,6 +96,10 @@ Function fired after click on `th` element. Takes one argument - object from `co
 Default: `true`. If `false`, table will render with non semantic markup - `divs` will be use instead of all
 HTML table elements.
 
+### `bodyWrapper` (function)
+Function that returns component wrapping entire table body.
+Takes one argument - `body` which should be rendered inside your component.
+
 ## Examples
 
 ### Table with two columns and two rows, data defined as list of objects.

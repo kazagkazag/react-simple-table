@@ -21,6 +21,18 @@ describe("Table", () => {
         expect(wrapper.find(Body)).to.have.length(1);
     });
 
+    it("should render table with custom wrapper on body", () => {
+        const bodyWrapperClassName = "test-body-wrapper";
+        const newProps = Object.assign({}, props, {
+            bodyWrapper: body => <div className={bodyWrapperClassName}>{body}</div>
+        });
+        const wrapper = shallow(<Table {...newProps}/>);
+
+        expect(wrapper.find(Head)).to.have.length(1);
+        expect(wrapper.find(Body)).to.have.length(1);
+        expect(wrapper.find(`.${bodyWrapperClassName}`)).to.have.length(1);
+    });
+
     it("should render table with custom class name", () => {
         const columns = [
             {
