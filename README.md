@@ -16,7 +16,7 @@ Now you can use it in your project:
 ```jsx
 // somewhere in your components...
 
-import Table from "react-simple-table";
+import Table from "@simple-gui/react-simple-table";
 
 <Table {...props} />
 ```

@@ -1,6 +1,6 @@
 {
   "name": "@simple-gui/react-simple-table",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "private": false,
   "devDependencies": {
     "chai": "^3.5.0",
@@ -93,5 +93,9 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "repository" : {
+      "type" : "git",
+      "url" : "https://github.com/kazagkazag/react-simple-table.git"
   }
 }
