@@ -155,7 +155,7 @@ export class Body extends Component {
                 const dataOfPreviousRow = data[index - 1];
                 return {cells: this.getDetailsRowCells(dataOfPreviousRow), className: this.getClassName(lastFullRowIndex, index)};
             } else if (this.state.itemsWithInlinedDetails.indexOf(index) > -1 && this.props.detailsInlined && this.context.semantic === false) {
-                return {cells: this.getRowWithInlinedDetailsCells(rowData)};
+                return {cells: this.getRowWithInlinedDetailsCells(rowData), className: this.getClassName(lastFullRowIndex, index)};
             } else if (rowData.fullRow) {
                 lastFullRowIndex = index;
                 return {cells: this.getFullRowCells(rowData)};
