@@ -872,7 +872,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	Sorter.propTypes = {
-	    sorted: _react.PropTypes.string,
+	    sorted: _react.PropTypes.any,
 	    sorterComponent: _react.PropTypes.func
 	};
 

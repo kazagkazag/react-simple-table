@@ -11,6 +11,6 @@ function renderSorterComponent(sorted, sorterComponent) {
 }
 
 Sorter.propTypes = {
-    sorted: PropTypes.string,
+    sorted: PropTypes.any,
     sorterComponent: PropTypes.func
 };
