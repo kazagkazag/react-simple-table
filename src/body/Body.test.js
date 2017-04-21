@@ -339,64 +339,6 @@ describe("Body", () => {
         expect(rows.at(1).find("td").at(0).text()).to.equal(subheaderText);
     });
 
-    it("should render rows class alternately when no subheader rows", () => {
-        new GivenRows([
-            {},
-            {},
-            {},
-            {}]).shouldHaveClasses([evenRowClassName, oddRowClassName, evenRowClassName, oddRowClassName])
-    });
-
-    it("should restart row class commutativity on subheader row", () => {
-        new GivenRows([
-            {},
-            {fullRow: true},
-            {},
-            {},
-            {},
-        ]).shouldHaveClasses([
-            evenRowClassName,
-            undefined,
-            evenRowClassName,
-            oddRowClassName,
-            evenRowClassName
-        ]);
-
-        new GivenRows([
-            {},
-            {fullRow: true},
-            {},
-            {fullRow: true},
-            {},
-            {}
-        ]).shouldHaveClasses([
-            evenRowClassName,
-            undefined,
-            evenRowClassName,
-            undefined,
-            evenRowClassName,
-            oddRowClassName
-        ]);
-    });
-
-    class GivenRows {
-        constructor(rows) {
-            const columns = [{}];
-            const newProps = Object.assign({}, props, {
-                data: rows,
-                columns
-            });
-            const wrapper = mount(<Body {...newProps}/>, options);
-            this.rows = wrapper.find(Row);
-        }
-
-        shouldHaveClasses(classes) {
-            classes.forEach((clazz, index) => {
-                expect(this.rows.at(index).props().additionalClassName).to.equal(clazz);
-            });
-        }
-    }
-
     it("should show details row after using handler provided to the component function", () => {
         const data = [
             {
@@ -536,5 +478,98 @@ describe("Body", () => {
         expect(wrapper.find(Row).at(1).find(".details")).to.have.length(0);
         expect(wrapper.find(Row).at(1).find(".with-inlined-details")).to.have.length(0);
     });
+
+    it("should render rows class alternately when no subheader rows", () => {
+        givenRows([
+            {},
+            {},
+            {},
+            {}]).shouldHaveClasses([evenRowClassName, oddRowClassName, evenRowClassName, oddRowClassName])
+    });
+
+    it("should restart row class commutativity on subheader row", () => {
+        givenRows([
+            {},
+            {fullRow: true},
+            {},
+            {},
+            {},
+        ]).shouldHaveClasses([
+            evenRowClassName,
+            undefined,
+            evenRowClassName,
+            oddRowClassName,
+            evenRowClassName
+        ]);
+
+        givenRows([
+            {},
+            {fullRow: true},
+            {},
+            {fullRow: true},
+            {},
+            {}
+        ]).shouldHaveClasses([
+            evenRowClassName,
+            undefined,
+            evenRowClassName,
+            undefined,
+            evenRowClassName,
+            oddRowClassName
+        ]);
+    });
+
+    it("should preserve row class commutativity on details row click", () => {
+        const data = [
+            {},
+            {}
+        ];
+        const columns = [{}];
+
+        const details = (item) => {
+            return <h1 className="details">Details: {item.id} {item.title}</h1>;
+        };
+
+        const newProps = Object.assign({}, props, {
+            data,
+            columns,
+            details,
+            detailsInlined: true
+        });
+        const wrapper = mount(<Body {...newProps}/>, {
+            context: {
+                semantic: false
+            }
+        });
+
+        const secondRow = wrapper.find(Row).at(1);
+
+        secondRow.find("div").at(1).simulate("click");
+
+        expect(secondRow.props().additionalClassName).to.equal(oddRowClassName);
+    });
+
+    function givenRows(rows) {
+        return new RowClassTester(rows)
+    }
+
+    class RowClassTester {
+        constructor(rows) {
+            const columns = [{}];
+            const newProps = Object.assign({}, props, {
+                data: rows,
+                columns
+            });
+            const wrapper = mount(<Body {...newProps}/>, options);
+            this.rows = wrapper.find(Row);
+        }
+
+        shouldHaveClasses(classes) {
+            classes.forEach((clazz, index) => {
+                expect(this.rows.at(index).props().additionalClassName).to.equal(clazz);
+            });
+        }
+    }
+
 
 });
