@@ -45,6 +45,19 @@ export default class Table extends Component {
         return styles;
     }
 
+    renderBody() {
+        const body = (
+            <Body
+                columns={this.props.columns}
+                data={this.props.data}
+                details={this.props.details}
+                detailsInlined={this.props.detailsInlined}
+            />
+        );
+
+        return this.props.bodyWrapper ? this.props.bodyWrapper(body) : body;
+    }
+
     render() {
         const Element = this.props.semantic ? "table" : "div";
 
@@ -61,12 +74,7 @@ export default class Table extends Component {
                         sorterComponent={this.props.sorterComponent}
                         onSort={this.props.onSort}
                     />
-                    <Body
-                        columns={this.props.columns}
-                        data={this.props.data}
-                        details={this.props.details}
-                        detailsInlined={this.props.detailsInlined}
-                    />
+                    {this.renderBody()}
                 </Element>
             </div>
         )
@@ -83,7 +91,8 @@ Table.propTypes = {
     onScrollToBottom: PropTypes.func,
     onSort: PropTypes.func,
     semantic: PropTypes.bool,
-    detailsInlined: PropTypes.bool
+    detailsInlined: PropTypes.bool,
+    bodyWrapper: PropTypes.func
 };
 
 Table.childContextTypes = {

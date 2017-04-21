@@ -5,10 +5,10 @@ with basic functionality.
 
 ## Usage
 
-This compoment is not available via npm, so you have to add this line to your
-package.json in devDependencies section:
+To install this package simply type:
+
 ```
-"react-simple-table": "kazagkazag/react-simple-table"
+npm install --save-dev @simple-gui/react-simple-table
 ```
 
 Now you can use it in your project:
@@ -16,7 +16,7 @@ Now you can use it in your project:
 ```jsx
 // somewhere in your components...
 
-import Table from "react-simple-table";
+import Table from "@simple-gui/react-simple-table";
 
 <Table {...props} />
 ```
@@ -95,6 +95,10 @@ Function fired after click on `th` element. Takes one argument - object from `co
 ### `sematinc` (boolean)
 Default: `true`. If `false`, table will render with non semantic markup - `divs` will be use instead of all
 HTML table elements.
+
+### `bodyWrapper` (function)
+Function that returns component wrapping entire table body.
+Takes one argument - `body` which should be rendered inside your component.
 
 ## Examples
 
