@@ -20,7 +20,8 @@ export class Body extends Component {
 
     componentWillReceiveProps({data = []}) {
         this.setState({
-            data
+            data,
+            itemsWithInlinedDetails: []
         });
     }
 

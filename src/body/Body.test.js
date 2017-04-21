@@ -270,6 +270,60 @@ describe("Body", () => {
         expect(detailsContent).to.have.length(0);
     });
 
+    it("should hide inlined details row after receiving new data", () => {
+        const data = [
+            {
+                id: 0,
+                title: "Some title"
+            },
+            {
+                id: 1,
+                title: "Another title"
+            }
+        ];
+        const columns = [
+            {
+                field: "title",
+                component: (item = {}) => {
+                    return <p>I am the template! {item.id} {item.title}</p>
+                }
+            },
+            {
+                field: "id"
+            }
+        ];
+        const details = (item) => {
+            return <h1 className="details">Details: {item.id} {item.title}</h1>;
+        };
+        const newProps = Object.assign({}, props, {
+            data,
+            columns,
+            details,
+            detailsInlined: true
+        });
+        const wrapper = mount(<Body {...newProps}/>, {
+            context: {
+                semantic: false
+            }
+        });
+        const secondRow = wrapper.find(Row).at(1);
+        const secondCellInSecondRow = secondRow.find("div").at(1);
+
+        secondCellInSecondRow.simulate("click");
+
+        expect(wrapper.find(".details")).to.have.length(1);
+
+        wrapper.setProps({
+            data: [...newProps.data, {
+                id: 2,
+                title: "New data"
+            }]
+        });
+
+        expect(wrapper.find(".details")).to.have.length(0);
+
+    });
+
     it("should render subheader rows with plain text based on data as object", () => {
         const data = [
             {
