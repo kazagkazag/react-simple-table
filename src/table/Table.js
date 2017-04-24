@@ -16,7 +16,7 @@ export default class Table extends Component {
     onScroll(event) {
         const scrolledToTheBottom = this.container.clientHeight + this.container.scrollTop >= this.container.scrollHeight;
 
-        if(scrolledToTheBottom) {
+        if(scrolledToTheBottom && this.props.onScrollToBottom) {
             this.props.onScrollToBottom(event);
         }
     }
