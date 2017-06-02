@@ -1,4 +1,5 @@
 import React, {PropTypes} from "react";
+
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 

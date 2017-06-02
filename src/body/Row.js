@@ -1,5 +1,7 @@
 import React, {PropTypes} from "react";
+
 import Cell from "./Cell";
+
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
