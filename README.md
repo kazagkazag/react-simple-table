@@ -51,6 +51,10 @@ your data is defined as list of lists
 One of the following: `ASC`, `DESC`. Describes direction
 of data sorting using on that column. This property only adds class on
 columns cells, this will not sort your data!
+#### `columns.isSortable` (boolean)
+For `true` **or** `undefined` it will render `Sorter` **with** `onSort` function.
+If `false` then sorting capability for given column will be disabled
+
 #### `columns.component` (function) 
 If you want to specify column unrelated to
 specified data, for example column with available actions of item, 

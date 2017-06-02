@@ -1,10 +1,8 @@
 import React, {PropTypes, Component} from "react";
-
 import Head from "../head/Head";
 import Body from "../body/Body";
 
 export default class Table extends Component {
-
     constructor(props) {
         super(props);
 
@@ -16,7 +14,7 @@ export default class Table extends Component {
     onScroll(event) {
         const scrolledToTheBottom = this.container.clientHeight + this.container.scrollTop >= this.container.scrollHeight;
 
-        if(scrolledToTheBottom && this.props.onScrollToBottom) {
+        if (scrolledToTheBottom && this.props.onScrollToBottom) {
             this.props.onScrollToBottom(event);
         }
     }

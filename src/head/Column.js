@@ -1,7 +1,5 @@
 import React, {PropTypes} from "react";
-
 import Sorter from "./Sorter";
-
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
@@ -11,23 +9,28 @@ export function Column({column, className, Element}) {
         className
     };
 
-    if(column.onSort) {
-        props.onClick = () => {
-            column.onSort(column);
-        };
-    }
-
     return (
         <Element {...props}>
-
             {column.title}
-
-            <Sorter
-                sorted={column.sorted}
-                sorterComponent={column.sorterComponent}
-            />
+            {renderSorter(column)}
         </Element>
     );
+}
+
+function renderSorter(column) {
+    return column.isSortable ? (
+        <Sorter
+            onClick={() => onColumnClick(column)}
+            sorted={column.sorted}
+            sorterComponent={column.sorterComponent}
+        />
+    ) : null;
+}
+
+function onColumnClick(column) {
+    if (column.onSort) {
+        column.onSort(column);
+    }
 }
 
 Column.propTypes = {

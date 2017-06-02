@@ -1,17 +1,15 @@
 import React, {PropTypes} from "react";
-
 import Columns from "./Columns";
-
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
 export function Head({
-    columns = [],
-    sorterComponent,
-    onSort,
-    className,
-    Element
-}) {
+     columns = [],
+     sorterComponent,
+     onSort,
+     className,
+     Element
+ }) {
     return (
         <Element className={className}>
             <Columns

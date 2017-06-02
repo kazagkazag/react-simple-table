@@ -2,7 +2,6 @@ import React from "react";
 import {expect} from "chai";
 import {mount} from "enzyme";
 import Head from "./Head";
-import sinon from "sinon";
 
 describe("Head", () => {
 
@@ -92,31 +91,5 @@ describe("Head", () => {
         expect(columnsElements).to.have.length(columns.length);
         expect(columnsElements.at(0).find(".custom-sorter").text()).to.equal("ASC");
         expect(columnsElements.at(1).find(".custom-sorter").text()).to.equal("DESC");
-    });
-
-    it("should call onSort callback with clicked column", () => {
-        const columns = [
-            {
-                title: "Column1",
-                sorted: "ASC"
-            },
-            {
-                title: "Column2",
-                sorted: "DESC"
-            }
-        ];
-        const sorterComponent = (sorted) => <p className="custom-sorter">{sorted}</p>;
-        const onSort = sinon.spy();
-        const newProps = Object.assign({}, props, {
-            columns,
-            sorterComponent,
-            onSort
-        });
-        const wrapper = mount(<Head {...newProps} />, options);
-        const columnsElements = wrapper.find("th");
-
-        columnsElements.at(0).simulate("click");
-
-        expect(onSort.calledWith(columns[0])).to.equal(true);
     });
 });
