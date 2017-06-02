@@ -8,26 +8,27 @@ export function Column({column, className, Element}) {
         key: column.title,
         className
     };
+    const isSortable = column.isSortable === undefined ? true : column.isSortable;
 
     return (
         <Element {...props}>
             {column.title}
-            {renderSorter(column)}
+            {renderSorter(column, isSortable)}
         </Element>
     );
 }
 
-function renderSorter(column) {
-    return column.isSortable ? (
+function renderSorter(column, isSortable) {
+    return isSortable ? (
         <Sorter
-            onClick={() => onColumnClick(column)}
+            onClick={() => onSorterClick(column)}
             sorted={column.sorted}
             sorterComponent={column.sorterComponent}
         />
     ) : null;
 }
 
-function onColumnClick(column) {
+function onSorterClick(column) {
     if (column.onSort) {
         column.onSort(column);
     }

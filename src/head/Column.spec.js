@@ -11,7 +11,7 @@ describe("Column", () => {
         }
     };
 
-    it("should render itself with basic matkup", () => {
+    it("should render itself with basic markup", () => {
         const props = {
             column: {
                 title: "Test",

@@ -25,8 +25,7 @@ function getColumns(columnsDefinitions) {
     return columns && columns.length ? columns.map(column => {
         const newColumnDefinition = Object.assign({}, column, {
             sorterComponent,
-            onSort,
-            isSortable: column.isSortable === undefined ? true : column.isSortable
+            onSort
         });
 
         return (
