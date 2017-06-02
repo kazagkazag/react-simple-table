@@ -47,7 +47,7 @@ describe("Columns", () => {
         expect(wrapper.find(Column).props().column.isSortable).to.equal(false);
     });
 
-    it("should set isSortable flag to false if flag is falsy", () => {
+    it("should set isSortable flag to true if flag is truthy", () => {
         const newProps = Object.assign({}, props, {
             columns: [
                 {
