@@ -139,7 +139,7 @@ describe("Head", () => {
     it("should render title as functional Component", () => {
         const columns = [
             {
-                title: <p className="custom-class">Component</p>,
+                title: () => <p className="custom-class">Component</p>,
                 sorted: "ASC"
             }
         ];
