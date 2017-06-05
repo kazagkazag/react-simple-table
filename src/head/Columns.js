@@ -2,7 +2,6 @@ import React, {PropTypes} from "react";
 import sid from "shortid";
 
 import Column from "./Column";
-
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
@@ -25,19 +24,17 @@ function getColumns(columnsDefinitions) {
     } = columnsDefinitions;
 
     return columns && columns.length ? columns.map(column => {
+        column.sorterComponent = sorterComponent;
+        column.onSort = onSort;
 
-            column.sorterComponent = sorterComponent;
-            column.onSort = onSort;
-
-            return (
-                <Column
-                    className={columnClassName}
-                    key={sid.generate()}
-                    column={column}
-                />
-            );
-
-        }) : null;
+        return (
+            <Column
+                className={columnClassName}
+                key={sid.generate()}
+                column={column}
+            />
+        );
+    }) : null;
 }
 
 Columns.propTypes = {

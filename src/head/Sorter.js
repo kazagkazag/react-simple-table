@@ -6,8 +6,8 @@ export default function Sorter({sorted, sorterComponent}) {
 
 function renderSorterComponent(sorted, sorterComponent) {
     return sorterComponent ? sorterComponent(sorted) : (
-            <span className={`sorter sorted-${sorted.toLowerCase()}`} />
-        );
+        <span className={`sorter sorted-${sorted.toLowerCase()}`} />
+    );
 }
 
 Sorter.propTypes = {
