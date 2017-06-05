@@ -24,16 +24,14 @@ function getColumns(columnsDefinitions) {
     } = columnsDefinitions;
 
     return columns && columns.length ? columns.map(column => {
-        const newColumnDefinition = Object.assign({}, column, {
-            sorterComponent,
-            onSort
-        });
+        column.sorterComponent = sorterComponent;
+        column.onSort = onSort;
 
         return (
             <Column
                 className={columnClassName}
                 key={sid.generate()}
-                column={newColumnDefinition}
+                column={column}
             />
         );
     }) : null;

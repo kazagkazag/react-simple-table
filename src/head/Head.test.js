@@ -125,4 +125,30 @@ describe("Head", () => {
         expect(wrapper.find(Column)).to.have.length(1);
         expect(wrapper.find(Sorter)).to.have.length(0);
     });
+
+    it("should call onSort callback with clicked column", () => {
+        const columns = [
+            {
+                title: "Column1",
+                sorted: "ASC"
+            },
+            {
+                title: "Column2",
+                sorted: "DESC"
+            }
+        ];
+        const sorterComponent = sorted => <p className="custom-sorter">{sorted}</p>;
+        const onSort = sinon.spy();
+        const newProps = Object.assign({}, props, {
+            columns,
+            sorterComponent,
+            onSort
+        });
+        const wrapper = mount(<Head {...newProps} />, options);
+        const columnsElements = wrapper.find("th");
+
+        columnsElements.at(0).simulate("click");
+
+        expect(onSort.calledWith(columns[0])).to.equal(true);
+    });
 });
