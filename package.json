@@ -1,6 +1,6 @@
 {
   "name": "@simple-gui/react-simple-table",
-  "version": "0.6.7",
+  "version": "0.7.7",
   "private": false,
   "devDependencies": {
     "autoprefixer": "6.5.1",
