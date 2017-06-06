@@ -10,8 +10,9 @@ export function Column({column, className, Element}) {
         key: column.title,
         className
     };
+    const isSortable = column.isSortable === undefined ? true : column.isSortable;
 
-    if(column.onSort) {
+    if (isSortable && column.onSort) {
         props.onClick = () => {
             column.onSort(column);
         };
@@ -20,10 +21,7 @@ export function Column({column, className, Element}) {
     return (
         <Element {...props}>
             {renderTitle(column.title)}
-            <Sorter
-                sorted={column.sorted}
-                sorterComponent={column.sorterComponent}
-            />
+            {renderSorter(column, isSortable)}
         </Element>
     );
 }
@@ -40,6 +38,15 @@ function renderTitleAsString(title) {
 
 function renderTitleAsComponent(Title) {
     return <Title />;
+}
+
+function renderSorter(column, isSortable) {
+    return isSortable ? (
+        <Sorter
+            sorted={column.sorted}
+            sorterComponent={column.sorterComponent}
+        />
+    ) : null;
 }
 
 Column.propTypes = {

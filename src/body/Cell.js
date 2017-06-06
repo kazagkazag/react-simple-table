@@ -4,7 +4,7 @@ import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
 export function Cell(props) {
-    const {Element} = props
+    const {Element} = props;
 
     return (
         <Element

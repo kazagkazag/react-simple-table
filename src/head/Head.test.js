@@ -4,6 +4,7 @@ import {mount} from "enzyme";
 import sinon from "sinon";
 import Head from "./Head";
 import Column from "./Column";
+import Sorter from "./Sorter";
 
 describe("Head", () => {
 
@@ -95,6 +96,36 @@ describe("Head", () => {
         expect(columnsElements.at(1).find(".custom-sorter").text()).to.equal("DESC");
     });
 
+    it("should display sorter if Column isSortable", () => {
+        const columns = [{
+            title: "Column1",
+            sorted: "ASC",
+            isSortable: true
+        }];
+        const newProps = Object.assign({}, props, {
+            columns
+        });
+        const wrapper = mount(<Head {...newProps} />, options);
+
+        expect(wrapper.find(Column)).to.have.length(1);
+        expect(wrapper.find(Sorter)).to.have.length(1);
+    });
+
+    it("should not display sorter if Column is not sortable", () => {
+        const columns = [{
+            title: "Column1",
+            sorted: "ASC",
+            isSortable: false
+        }];
+        const newProps = Object.assign({}, props, {
+            columns
+        });
+        const wrapper = mount(<Head {...newProps} />, options);
+
+        expect(wrapper.find(Column)).to.have.length(1);
+        expect(wrapper.find(Sorter)).to.have.length(0);
+    });
+
     it("should call onSort callback with clicked column", () => {
         const columns = [
             {
@@ -106,7 +137,7 @@ describe("Head", () => {
                 sorted: "DESC"
             }
         ];
-        const sorterComponent = (sorted) => <p className="custom-sorter">{sorted}</p>;
+        const sorterComponent = sorted => <p className="custom-sorter">{sorted}</p>;
         const onSort = sinon.spy();
         const newProps = Object.assign({}, props, {
             columns,

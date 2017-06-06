@@ -11,7 +11,7 @@ export function Head({
     onSort,
     className,
     Element
-}) {
+ }) {
     return (
         <Element className={className}>
             <Columns
