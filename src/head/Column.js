@@ -1,4 +1,4 @@
-import React, {PropTypes} from "react";
+import React, {PropTypes, isValidElement} from "react";
 
 import Sorter from "./Sorter";
 
@@ -20,10 +20,24 @@ export function Column({column, className, Element}) {
 
     return (
         <Element {...props}>
-            {column.title}
+            {renderTitle(column.title)}
             {renderSorter(column, isSortable)}
         </Element>
     );
+}
+
+function renderTitle(title) {
+    return typeof title === "function" && isValidElement(title()) ?
+        renderTitleAsComponent(title) :
+        renderTitleAsString(title);
+}
+
+function renderTitleAsString(title) {
+    return title ? title : null;
+}
+
+function renderTitleAsComponent(Title) {
+    return <Title />;
 }
 
 function renderSorter(column, isSortable) {

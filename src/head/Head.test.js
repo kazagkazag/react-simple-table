@@ -151,4 +151,49 @@ describe("Head", () => {
 
         expect(onSort.calledWith(columns[0])).to.equal(true);
     });
+
+    it("should render title as string", () => {
+        const columns = [
+            {
+                title: "Column1",
+                sorted: "ASC"
+            }
+        ];
+        const newProps = Object.assign({}, props, {
+            columns
+        });
+        const wrapper = mount(<Head {...newProps} />, options);
+
+        expect(wrapper.find(Column).text()).to.contains("Column1")
+    });
+
+    it("should render title as functional Component", () => {
+        const columns = [
+            {
+                title: () => <p className="custom-class">Component</p>,
+                sorted: "ASC"
+            }
+        ];
+        const newProps = Object.assign({}, props, {
+            columns
+        });
+        const wrapper = mount(<Head {...newProps} />, options);
+
+        expect(wrapper.find(".custom-class")).to.have.length(1);
+    });
+
+    it("should not render title if it is a function but not react element", () => {
+        const columns = [
+            {
+                title: () => {},
+                sorted: "ASC"
+            }
+        ];
+        const newProps = Object.assign({}, props, {
+            columns
+        });
+        const wrapper = mount(<Head {...newProps} />, options);
+
+        expect(wrapper.find("th").children()).to.have.length(1); // for Sorter
+    });
 });
