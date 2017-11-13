@@ -1,7 +1,8 @@
 {
   "name": "@simple-gui/react-simple-table",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "private": false,
+  "types": "./index.d.ts",
   "devDependencies": {
     "autoprefixer": "6.5.1",
     "babel-core": "6.17.0",

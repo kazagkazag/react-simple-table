@@ -90,6 +90,7 @@ Table.propTypes = {
     maxHeight: PropTypes.string,
     onScrollToBottom: PropTypes.func,
     onSort: PropTypes.func,
+    onReorder: PropTypes.func,
     semantic: PropTypes.bool,
     detailsInlined: PropTypes.bool,
     bodyWrapper: PropTypes.func
