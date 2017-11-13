@@ -158,6 +158,8 @@ export class Body extends Component {
             }
         }
 
+        cellProperties.absoluteWidth = column.absoluteWidth;
+
         return cellProperties;
     }
 

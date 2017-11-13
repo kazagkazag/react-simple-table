@@ -603,6 +603,36 @@ describe("Body", () => {
         expect(secondRow.props().additionalClassName).to.equal(oddRowClassName);
     });
 
+    it("should apply specified absolute width", () => {
+        const data = [
+            {
+                id: 0,
+                title: "Some title"
+            },
+            {
+                id: 1,
+                title: "Another title"
+            }
+        ];
+        const columns = [
+            {
+                field: "title",
+                absoluteWidth: 1234
+            },
+            {
+                field: "id"
+            }
+        ];
+        const newProps = Object.assign({}, props, {
+            data,
+            columns
+        });
+        const wrapper = mount(<Body {...newProps}/>, options);
+        const rows = wrapper.find(Row);
+
+        expect(rows.at(0).find("td").at(0).html()).to.contains("1234px");
+    });
+
     function givenRows(rows) {
         return new RowClassTester(rows)
     }

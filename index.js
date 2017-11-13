@@ -496,6 +496,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                };
 	            }
 	
+	            cellProperties.absoluteWidth = column.absoluteWidth;
+	
 	            return cellProperties;
 	        }
 	    }, {
@@ -600,10 +602,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	function Cell(props) {
 	    var Element = props.Element;
 	
+	    var styles = {};
+	
+	    if (props.absoluteWidth) {
+	        styles.width = props.absoluteWidth + "px";
+	    }
 	
 	    return _react2.default.createElement(
 	        Element,
 	        {
+	            style: styles,
 	            colSpan: props.colSpan,
 	            onClick: props.onClick,
 	            className: props.className + " " + props.additionalClassName
@@ -617,7 +625,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    className: _react.PropTypes.string,
 	    colSpan: _react.PropTypes.number,
 	    onClick: _react.PropTypes.func,
-	    children: _react.PropTypes.node
+	    children: _react.PropTypes.node,
+	    absoluteWidth: _react.PropTypes.number
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("td")((0, _addClassName2.default)("_cell")(Cell));
@@ -667,6 +676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                key: key,
 	                onClick: cell.onClick,
 	                colSpan: cell.colSpan,
+	                absoluteWidth: cell.absoluteWidth,
 	                additionalClassName: cellAdditionalClassName
 	            },
 	            cell.content

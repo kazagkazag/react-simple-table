@@ -1,13 +1,19 @@
-import React, {PropTypes} from "react";
+import React, { PropTypes } from "react";
 
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
 export function Cell(props) {
-    const {Element} = props;
+    const { Element } = props;
+    const styles = {};
+
+    if (props.absoluteWidth) {
+        styles.width = `${props.absoluteWidth}px`;
+    }
 
     return (
         <Element
+            style={styles}
             colSpan={props.colSpan}
             onClick={props.onClick}
             className={`${props.className} ${props.additionalClassName}`}
@@ -22,7 +28,8 @@ Cell.propTypes = {
     className: PropTypes.string,
     colSpan: PropTypes.number,
     onClick: PropTypes.func,
-    children: PropTypes.node
+    children: PropTypes.node,
+    absoluteWidth: PropTypes.number
 };
 
 export default provideCorrectDOMNode("td")(

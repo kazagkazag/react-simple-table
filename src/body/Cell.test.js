@@ -48,6 +48,6 @@ describe("Cell", () => {
         const wrapper = shallow(<Cell {...newProps} />);
 
         expect(wrapper.props().colSpan).to.equal(newProps.colSpan);
-    })
+    });
 
 });

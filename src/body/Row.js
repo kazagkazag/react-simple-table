@@ -19,6 +19,7 @@ function Row(props) {
                 key={key}
                 onClick={cell.onClick}
                 colSpan={cell.colSpan}
+                absoluteWidth={cell.absoluteWidth}
                 additionalClassName={cellAdditionalClassName}
             >
                 {cell.content}
