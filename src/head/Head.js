@@ -10,7 +10,8 @@ export function Head({
     sorterComponent,
     onSort,
     className,
-    Element
+    Element,
+    onReorder
  }) {
     return (
         <Element className={className}>
@@ -18,6 +19,7 @@ export function Head({
                 columns={columns}
                 sorterComponent={sorterComponent}
                 onSort={onSort}
+                onReorder={onReorder}
             />
         </Element>
     );
@@ -28,7 +30,8 @@ Head.propTypes = {
     sorterComponent: PropTypes.func,
     onSort: PropTypes.func,
     className: PropTypes.string,
-    Element: PropTypes.string
+    Element: PropTypes.string,
+    onReorder: PropTypes.func
 };
 
 export default provideCorrectDOMNode("thead")(

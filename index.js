@@ -60,7 +60,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _Table = __webpack_require__(12);
+	__webpack_require__(13);
+	
+	var _Table = __webpack_require__(14);
 	
 	var _Table2 = _interopRequireDefault(_Table);
 
@@ -150,7 +152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	var randomFromSeed = __webpack_require__(19);
+	var randomFromSeed = __webpack_require__(21);
 	
 	var ORIGINAL = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
 	var alphabet;
@@ -252,6 +254,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	var randomByte = __webpack_require__(20);
+	
+	function encode(lookup, number) {
+	    var loopCounter = 0;
+	    var done;
+	
+	    var str = '';
+	
+	    while (!done) {
+	        str = str + lookup( ( (number >> (4 * loopCounter)) & 0x0f ) | randomByte() );
+	        done = number < (Math.pow(16, loopCounter + 1 ) );
+	        loopCounter++;
+	    }
+	    return str;
+	}
+	
+	module.exports = encode;
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -267,7 +294,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Row = __webpack_require__(7);
+	var _Row = __webpack_require__(8);
 	
 	var _Row2 = _interopRequireDefault(_Row);
 	
@@ -528,7 +555,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _provideCorrectDOMNode2.default)("tbody")((0, _addClassName2.default)("_body")(Body));
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -578,7 +605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _provideCorrectDOMNode2.default)("td")((0, _addClassName2.default)("_cell")(Cell));
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -592,7 +619,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Cell = __webpack_require__(6);
+	var _Cell = __webpack_require__(7);
 	
 	var _Cell2 = _interopRequireDefault(_Cell);
 	
@@ -647,7 +674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _provideCorrectDOMNode2.default)("tr")((0, _addClassName2.default)("_row")(Row));
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -661,7 +688,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Sorter = __webpack_require__(11);
+	var _Sorter = __webpack_require__(12);
 	
 	var _Sorter2 = _interopRequireDefault(_Sorter);
 	
@@ -678,10 +705,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	function Column(_ref) {
 	    var column = _ref.column,
 	        className = _ref.className,
-	        Element = _ref.Element;
+	        Element = _ref.Element,
+	        onReorder = _ref.onReorder;
 	
 	    var props = {
 	        key: column.title,
+	        "data-key": column.title,
 	        className: className
 	    };
 	    var isSortable = column.isSortable === undefined ? true : column.isSortable;
@@ -689,6 +718,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (isSortable && column.onSort) {
 	        props.onClick = function () {
 	            column.onSort(column);
+	        };
+	    }
+	
+	    if (onReorder) {
+	        props.draggable = true;
+	
+	        props.onDragStart = function (event) {
+	            event.dataTransfer.setData("text", column.title);
+	        };
+	
+	        props.onDragOver = function (event) {
+	            event.preventDefault();
+	        };
+	
+	        props.onDragEnter = function (event) {
+	            event.target.classList.add("drop-target-entered");
+	        };
+	
+	        props.onDragLeave = function (event) {
+	            event.target.classList.remove("drop-target-entered");
+	        };
+	
+	        props.onDrop = function (event) {
+	            event.preventDefault();
+	            event.target.classList.remove("drop-target-entered");
+	            var sourceColumnKey = event.dataTransfer.getData("text");
+	            var targetColumnKey = event.target.getAttribute("data-key");
+	            onReorder(sourceColumnKey, targetColumnKey);
 	        };
 	    }
 	
@@ -722,13 +779,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	Column.propTypes = {
 	    column: _react.PropTypes.object,
 	    className: _react.PropTypes.string,
-	    Element: _react.PropTypes.string
+	    Element: _react.PropTypes.string,
+	    onReorder: _react.PropTypes.func
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("th")((0, _addClassName2.default)("_th")(Column));
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -742,11 +800,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _shortid = __webpack_require__(13);
+	var _shortid = __webpack_require__(15);
 	
 	var _shortid2 = _interopRequireDefault(_shortid);
 	
-	var _Column = __webpack_require__(8);
+	var _Column = __webpack_require__(9);
 	
 	var _Column2 = _interopRequireDefault(_Column);
 	
@@ -775,7 +833,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var columns = columnsDefinitions.columns,
 	        sorterComponent = columnsDefinitions.sorterComponent,
 	        onSort = columnsDefinitions.onSort,
-	        columnClassName = columnsDefinitions.columnClassName;
+	        columnClassName = columnsDefinitions.columnClassName,
+	        onReorder = columnsDefinitions.onReorder;
 	
 	
 	    return columns && columns.length ? columns.map(function (column) {
@@ -785,7 +844,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return _react2.default.createElement(_Column2.default, {
 	            className: columnClassName,
 	            key: _shortid2.default.generate(),
-	            column: column
+	            column: column,
+	            onReorder: onReorder
 	        });
 	    }) : null;
 	}
@@ -796,13 +856,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    onSort: _react.PropTypes.func,
 	    columnClassName: _react.PropTypes.string,
 	    className: _react.PropTypes.string,
-	    Element: _react.PropTypes.string
+	    Element: _react.PropTypes.string,
+	    onReorder: _react.PropTypes.func
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("tr")((0, _addClassName2.default)("_head-row")(Columns));
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -816,7 +877,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Columns = __webpack_require__(9);
+	var _Columns = __webpack_require__(10);
 	
 	var _Columns2 = _interopRequireDefault(_Columns);
 	
@@ -836,7 +897,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        sorterComponent = _ref.sorterComponent,
 	        onSort = _ref.onSort,
 	        className = _ref.className,
-	        Element = _ref.Element;
+	        Element = _ref.Element,
+	        onReorder = _ref.onReorder;
 	
 	    return _react2.default.createElement(
 	        Element,
@@ -844,7 +906,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(_Columns2.default, {
 	            columns: columns,
 	            sorterComponent: sorterComponent,
-	            onSort: onSort
+	            onSort: onSort,
+	            onReorder: onReorder
 	        })
 	    );
 	}
@@ -854,13 +917,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    sorterComponent: _react.PropTypes.func,
 	    onSort: _react.PropTypes.func,
 	    className: _react.PropTypes.string,
-	    Element: _react.PropTypes.string
+	    Element: _react.PropTypes.string,
+	    onReorder: _react.PropTypes.func
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("thead")((0, _addClassName2.default)("_head")(Head));
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -893,7 +957,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 12 */
+/* 13 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex#Polyfill
+	if (!Array.prototype.findIndex) {
+	      Object.defineProperty(Array.prototype, 'findIndex', {
+	            value: function value(predicate) {
+	                  // 1. Let O be ? ToObject(this value).
+	                  if (this == null) {
+	                        throw new TypeError('"this" is null or not defined');
+	                  }
+	
+	                  var o = Object(this);
+	
+	                  // 2. Let len be ? ToLength(? Get(O, "length")).
+	                  var len = o.length >>> 0;
+	
+	                  // 3. If IsCallable(predicate) is false, throw a TypeError exception.
+	                  if (typeof predicate !== 'function') {
+	                        throw new TypeError('predicate must be a function');
+	                  }
+	
+	                  // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
+	                  var thisArg = arguments[1];
+	
+	                  // 5. Let k be 0.
+	                  var k = 0;
+	
+	                  // 6. Repeat, while k < len
+	                  while (k < len) {
+	                        // a. Let Pk be ! ToString(k).
+	                        // b. Let kValue be ? Get(O, Pk).
+	                        // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
+	                        // d. If testResult is true, return k.
+	                        var kValue = o[k];
+	                        if (predicate.call(thisArg, kValue, k, o)) {
+	                              return k;
+	                        }
+	                        // e. Increase k by 1.
+	                        k++;
+	                  }
+	
+	                  // 7. Return -1.
+	                  return -1;
+	            }
+	      });
+	}
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -908,11 +1023,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Head = __webpack_require__(10);
+	var _Head = __webpack_require__(11);
 	
 	var _Head2 = _interopRequireDefault(_Head);
 	
-	var _Body = __webpack_require__(5);
+	var _Body = __webpack_require__(6);
 	
 	var _Body2 = _interopRequireDefault(_Body);
 	
@@ -1009,7 +1124,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _react2.default.createElement(_Head2.default, {
 	                        columns: this.props.columns,
 	                        sorterComponent: this.props.sorterComponent,
-	                        onSort: this.props.onSort
+	                        onSort: this.props.onSort,
+	                        onReorder: this.props.onReorder
 	                    }),
 	                    this.renderBody()
 	                )
@@ -1049,59 +1165,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	module.exports = __webpack_require__(16);
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var alphabet = __webpack_require__(4);
-	
-	/**
-	 * Decode the id to get the version and worker
-	 * Mainly for debugging and testing.
-	 * @param id - the shortid-generated id.
-	 */
-	function decode(id) {
-	    var characters = alphabet.shuffled();
-	    return {
-	        version: characters.indexOf(id.substr(0, 1)) & 0x0f,
-	        worker: characters.indexOf(id.substr(1, 1)) & 0x0f
-	    };
-	}
-	
-	module.exports = decode;
-
-
-/***/ },
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	var randomByte = __webpack_require__(18);
-	
-	function encode(lookup, number) {
-	    var loopCounter = 0;
-	    var done;
-	
-	    var str = '';
-	
-	    while (!done) {
-	        str = str + lookup( ( (number >> (4 * loopCounter)) & 0x0f ) | randomByte() );
-	        done = number < (Math.pow(16, loopCounter + 1 ) );
-	        loopCounter++;
-	    }
-	    return str;
-	}
-	
-	module.exports = encode;
+	module.exports = __webpack_require__(18);
 
 
 /***/ },
@@ -1110,10 +1178,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
+	var encode = __webpack_require__(5);
 	var alphabet = __webpack_require__(4);
-	var encode = __webpack_require__(15);
-	var decode = __webpack_require__(14);
-	var isValid = __webpack_require__(17);
 	
 	// Ignore all milliseconds before a certain time to reduce the size of the date entropy without sacrificing uniqueness.
 	// This number should be updated every year or so to keep the generated id short.
@@ -1123,12 +1189,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	// don't change unless we change the algos or REDUCE_TIME
 	// must be an integer and less than 16
 	var version = 6;
-	
-	// if you are using cluster or multiple servers use this to make each instance
-	// has a unique value for worker
-	// Note: I don't know if this is automatically set when using third
-	// party cluster solutions such as pm2.
-	var clusterWorkerId = __webpack_require__(20) || 0;
 	
 	// Counter is used when shortid is called multiple times in one second.
 	var counter;
@@ -1140,7 +1200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Generate unique id
 	 * Returns string id
 	 */
-	function generate() {
+	function build(clusterWorkerId) {
 	
 	    var str = '';
 	
@@ -1163,6 +1223,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return str;
 	}
 	
+	module.exports = build;
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var alphabet = __webpack_require__(4);
+	
+	/**
+	 * Decode the id to get the version and worker
+	 * Mainly for debugging and testing.
+	 * @param id - the shortid-generated id.
+	 */
+	function decode(id) {
+	    var characters = alphabet.shuffled();
+	    return {
+	        version: characters.indexOf(id.substr(0, 1)) & 0x0f,
+	        worker: characters.indexOf(id.substr(1, 1)) & 0x0f
+	    };
+	}
+	
+	module.exports = decode;
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var alphabet = __webpack_require__(4);
+	var encode = __webpack_require__(5);
+	var decode = __webpack_require__(17);
+	var build = __webpack_require__(16);
+	var isValid = __webpack_require__(19);
+	
+	// if you are using cluster or multiple servers use this to make each instance
+	// has a unique value for worker
+	// Note: I don't know if this is automatically set when using third
+	// party cluster solutions such as pm2.
+	var clusterWorkerId = __webpack_require__(22) || 0;
 	
 	/**
 	 * Set the seed.
@@ -1199,6 +1302,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return alphabet.shuffled();
 	}
 	
+	/**
+	 * Generate unique id
+	 * Returns string id
+	 */
+	function generate() {
+	  return build(clusterWorkerId);
+	}
 	
 	// Export all other functions as properties of the generate function
 	module.exports = generate;
@@ -1211,7 +1321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1236,7 +1346,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1256,7 +1366,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1287,7 +1397,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';

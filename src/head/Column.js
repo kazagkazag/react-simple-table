@@ -1,13 +1,14 @@
-import React, {PropTypes, isValidElement} from "react";
+import React, { PropTypes, isValidElement } from "react";
 
 import Sorter from "./Sorter";
 
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
 
-export function Column({column, className, Element}) {
+export function Column({ column, className, Element, onReorder }) {
     const props = {
         key: column.title,
+        "data-key": column.title,
         className
     };
     const isSortable = column.isSortable === undefined ? true : column.isSortable;
@@ -16,6 +17,34 @@ export function Column({column, className, Element}) {
         props.onClick = () => {
             column.onSort(column);
         };
+    }
+
+    if (onReorder) {
+        props.draggable = true;
+
+        props.onDragStart = (event) => {
+            event.dataTransfer.setData("text", column.title);
+        }
+
+        props.onDragOver = (event) => {
+            event.preventDefault();
+        }
+
+        props.onDragEnter = (event) => {
+            event.target.classList.add("drop-target-entered");
+        }
+
+        props.onDragLeave = (event) => {
+            event.target.classList.remove("drop-target-entered");
+        }
+
+        props.onDrop = (event) => {
+            event.preventDefault();
+            event.target.classList.remove("drop-target-entered");
+            const sourceColumnKey = event.dataTransfer.getData("text");
+            const targetColumnKey = event.target.getAttribute("data-key");
+            onReorder(sourceColumnKey, targetColumnKey);
+        }
     }
 
     return (
@@ -52,7 +81,8 @@ function renderSorter(column, isSortable) {
 Column.propTypes = {
     column: PropTypes.object,
     className: PropTypes.string,
-    Element: PropTypes.string
+    Element: PropTypes.string,
+    onReorder: PropTypes.func
 };
 
 export default provideCorrectDOMNode("th")(

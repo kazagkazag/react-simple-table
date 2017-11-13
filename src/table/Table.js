@@ -72,6 +72,7 @@ export default class Table extends Component {
                         columns={this.props.columns}
                         sorterComponent={this.props.sorterComponent}
                         onSort={this.props.onSort}
+                        onReorder={this.props.onReorder}
                     />
                     {this.renderBody()}
                 </Element>

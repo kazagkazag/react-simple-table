@@ -20,7 +20,8 @@ function getColumns(columnsDefinitions) {
         columns,
         sorterComponent,
         onSort,
-        columnClassName
+        columnClassName,
+        onReorder
     } = columnsDefinitions;
 
     return columns && columns.length ? columns.map(column => {
@@ -32,6 +33,7 @@ function getColumns(columnsDefinitions) {
                 className={columnClassName}
                 key={sid.generate()}
                 column={column}
+                onReorder={onReorder}
             />
         );
     }) : null;
@@ -43,7 +45,8 @@ Columns.propTypes = {
     onSort: PropTypes.func,
     columnClassName: PropTypes.string,
     className: PropTypes.string,
-    Element: PropTypes.string
+    Element: PropTypes.string,
+    onReorder: PropTypes.func
 };
 
 export default provideCorrectDOMNode("tr")(

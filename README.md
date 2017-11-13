@@ -36,6 +36,9 @@ Suffixes:
 * `_row` for row in `tbody`
 * `_cell` for `td`
 
+Extra class names:
+* `drop-target-entered` for `table head cell` element while reordering column
+
 ### `columns` (array) 
 List of objects. Every object is a definition of column in your table.
 Each column could have following properties:
@@ -96,13 +99,18 @@ Takes one argument - react event.
 ### `onSort` (function)
 Function fired after click on `th` element. Takes one argument - object from `columns` of clicked column.
 
-### `sematinc` (boolean)
+### `semantic` (boolean)
 Default: `true`. If `false`, table will render with non semantic markup - `divs` will be use instead of all
 HTML table elements.
 
 ### `bodyWrapper` (function)
 Function that returns component wrapping entire table body.
 Takes one argument - `body` which should be rendered inside your component.
+
+### `onReorder` (function)
+Function that is fired after columns reorder. If `onReorder` property is provided, all columns are draggable
+and user is able to reorder columns using pointer.
+Takes two arguments - `source column title` and `target column title`.
 
 ## Examples
 
