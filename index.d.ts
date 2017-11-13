@@ -10,6 +10,7 @@ interface Column {
     sorderd?: string;
     isSortable?: boolean;
     component?: (row: any, toggleDetails: () => void) => any;
+    absoluteWidth?: number;
 }
 
 interface TableProps {
@@ -25,7 +26,7 @@ interface TableProps {
     semantic?: boolean;
     detailsInlined?: boolean;
     bodyWrapper?: (body: any) => any;
-    onRowClick: (clickedRow: any, event: any) => void;
+    onRowClick?: (clickedRow: any, event: any) => void;
 }
 
 declare class Table extends React.Component<TableProps, any> {

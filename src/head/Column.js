@@ -47,6 +47,12 @@ export function Column({ column, className, Element, onReorder }) {
         }
     }
 
+    if (typeof column.absoluteWidth === "number") {
+        props.style = {
+            width: `${column.absoluteWidth}px`
+        }
+    }
+
     return (
         <Element {...props}>
             {renderTitle(column.title)}

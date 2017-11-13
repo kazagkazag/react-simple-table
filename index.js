@@ -767,6 +767,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	    }
 	
+	    if (typeof column.absoluteWidth === "number") {
+	        props.style = {
+	            width: column.absoluteWidth + "px"
+	        };
+	    }
+	
 	    return _react2.default.createElement(
 	        Element,
 	        props,

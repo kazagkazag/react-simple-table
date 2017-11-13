@@ -57,6 +57,8 @@ columns cells, this will not sort your data!
 #### `columns.isSortable` (boolean)
 For `true` **or** `undefined` it will render `Sorter` **with** `onSort` function.
 If `false` then sorting capability for given column will be disabled
+#### `columns.absoluteWidth` (number)
+Width of the column specified as a number (rendered with `px` as the unit in `style` property of the cell).
 
 #### `columns.component` (function) 
 If you want to specify column unrelated to

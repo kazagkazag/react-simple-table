@@ -196,4 +196,20 @@ describe("Head", () => {
 
         expect(wrapper.find("th").children()).to.have.length(1); // for Sorter
     });
+
+    it("should apply width if specified", () => {
+        const columns = [
+            {
+                title: "Column1",
+                sorted: "ASC",
+                absoluteWidth: 140
+            }
+        ];
+        const newProps = Object.assign({}, props, {
+            columns
+        });
+        const wrapper = mount(<Head {...newProps} />, options);
+
+        expect(wrapper.find(Column).html()).to.contains("140px")
+    });
 });
