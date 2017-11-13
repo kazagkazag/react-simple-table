@@ -51,6 +51,7 @@ export default class Table extends Component {
                 data={this.props.data}
                 details={this.props.details}
                 detailsInlined={this.props.detailsInlined}
+                onRowClick={this.props.onRowClick}
             />
         );
 
@@ -93,7 +94,8 @@ Table.propTypes = {
     onReorder: PropTypes.func,
     semantic: PropTypes.bool,
     detailsInlined: PropTypes.bool,
-    bodyWrapper: PropTypes.func
+    bodyWrapper: PropTypes.func,
+    onRowClick: PropTypes.func
 };
 
 Table.childContextTypes = {

@@ -134,4 +134,37 @@ describe("Table", () => {
 
         expect(newProps.onScrollToBottom.called).to.equal(false);
     });
+
+    it("should call onRowClick callback after click on the row", () => {
+        const columns = [
+            {
+                title: "Column1"
+            },
+            {
+                title: "Column2"
+            }
+        ];
+        const data = [
+            {
+                id: 0,
+                title: "Some title"
+            },
+            {
+                id: 1,
+                title: "Another title"
+            }
+        ];
+        const newProps = Object.assign({}, props, {
+            onRowClick: sinon.spy(),
+            maxHeight: "200px",
+            className: "test",
+            columns,
+            data,
+            semantic: false
+        });
+        const wrapper = mount(<Table {...newProps}/>);
+        wrapper.find(".test_cell").first().simulate("click");
+
+        expect(newProps.onRowClick.called).to.equal(true);
+    });
 });

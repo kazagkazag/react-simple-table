@@ -29,6 +29,10 @@ class App extends Component {
           className="demo"
           semantic={false}
           onReorder={this.reorder}
+          onRowClick={(row, event) => {
+            console.log(row);
+            console.log(event);
+          }}
           data={[
             {
               id: "1",

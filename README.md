@@ -112,6 +112,10 @@ Function that is fired after columns reorder. If `onReorder` property is provide
 and user is able to reorder columns using pointer.
 Takes two arguments - `source column title` and `target column title`.
 
+### `onRowClick` (function)
+Function that is fired after click on the row cells.
+Takes two arguments - clicked `row` and `event`.
+
 ## Examples
 
 ### Table with two columns and two rows, data defined as list of objects.

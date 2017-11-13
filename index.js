@@ -470,13 +470,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: "getCell",
 	        value: function getCell(column, row) {
+	            var _this4 = this;
+	
 	            var cellProperties = {};
 	            var toggler = this.toggleDetails.bind(this, row);
+	            var onClickHandlers = [];
 	
 	            cellProperties.content = column.component && typeof column.component === "function" ? column.component(row, toggler) : row[column.field];
 	
 	            if (this.props.details) {
-	                cellProperties.onClick = toggler;
+	                onClickHandlers.push(toggler);
+	            }
+	
+	            if (this.props.onRowClick) {
+	                onClickHandlers.push(function (event) {
+	                    return _this4.props.onRowClick(row, event);
+	                });
+	            }
+	
+	            if (onClickHandlers.length) {
+	                cellProperties.onClick = function (event) {
+	                    onClickHandlers.forEach(function (handler) {
+	                        handler(event);
+	                    });
+	                };
 	            }
 	
 	            return cellProperties;
@@ -484,21 +501,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: "getCellsForRowsInColumnsOrder",
 	        value: function getCellsForRowsInColumnsOrder() {
-	            var _this4 = this;
+	            var _this5 = this;
 	
 	            var data = this.state.data;
 	            var lastFullRowIndex = -1;
 	            return data.map(function (rowData, index) {
-	                if (rowData.isRowWithDetails && _this4.props.detailsInlined !== true) {
+	                if (rowData.isRowWithDetails && _this5.props.detailsInlined !== true) {
 	                    var dataOfPreviousRow = data[index - 1];
-	                    return { cells: _this4.getDetailsRowCells(dataOfPreviousRow), className: _this4.getClassName(lastFullRowIndex, index) };
-	                } else if (_this4.state.itemsWithInlinedDetails.indexOf(index) > -1 && _this4.props.detailsInlined && _this4.context.semantic === false) {
-	                    return { cells: _this4.getRowWithInlinedDetailsCells(rowData), className: _this4.getClassName(lastFullRowIndex, index) };
+	                    return { cells: _this5.getDetailsRowCells(dataOfPreviousRow), className: _this5.getClassName(lastFullRowIndex, index) };
+	                } else if (_this5.state.itemsWithInlinedDetails.indexOf(index) > -1 && _this5.props.detailsInlined && _this5.context.semantic === false) {
+	                    return { cells: _this5.getRowWithInlinedDetailsCells(rowData), className: _this5.getClassName(lastFullRowIndex, index) };
 	                } else if (rowData.fullRow) {
 	                    lastFullRowIndex = index;
-	                    return { cells: _this4.getFullRowCells(rowData) };
+	                    return { cells: _this5.getFullRowCells(rowData) };
 	                } else {
-	                    return { cells: _this4.getStandardRowCells(rowData), className: _this4.getClassName(lastFullRowIndex, index) };
+	                    return { cells: _this5.getStandardRowCells(rowData), className: _this5.getClassName(lastFullRowIndex, index) };
 	                }
 	            });
 	        }
@@ -541,7 +558,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    details: _react.PropTypes.func,
 	    detailsInlined: _react.PropTypes.bool,
 	    className: _react.PropTypes.string,
-	    Element: _react.PropTypes.string
+	    Element: _react.PropTypes.string,
+	    onRowClick: _react.PropTypes.func
 	};
 	
 	Body.defaultProps = {
@@ -1096,7 +1114,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                columns: this.props.columns,
 	                data: this.props.data,
 	                details: this.props.details,
-	                detailsInlined: this.props.detailsInlined
+	                detailsInlined: this.props.detailsInlined,
+	                onRowClick: this.props.onRowClick
 	            });
 	
 	            return this.props.bodyWrapper ? this.props.bodyWrapper(body) : body;
@@ -1148,9 +1167,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    maxHeight: _react.PropTypes.string,
 	    onScrollToBottom: _react.PropTypes.func,
 	    onSort: _react.PropTypes.func,
+	    onReorder: _react.PropTypes.func,
 	    semantic: _react.PropTypes.bool,
 	    detailsInlined: _react.PropTypes.bool,
-	    bodyWrapper: _react.PropTypes.func
+	    bodyWrapper: _react.PropTypes.func,
+	    onRowClick: _react.PropTypes.func
 	};
 	
 	Table.childContextTypes = {

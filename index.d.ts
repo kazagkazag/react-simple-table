@@ -24,7 +24,8 @@ interface TableProps {
     onReorder?: (sourceColumnTitle: string, targetColumntTitle: string) => void; 
     semantic?: boolean;
     detailsInlined?: boolean;
-    bodyWrapper?: (body: any) => any
+    bodyWrapper?: (body: any) => any;
+    onRowClick: (clickedRow: any, event: any) => void;
 }
 
 declare class Table extends React.Component<TableProps, any> {

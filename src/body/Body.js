@@ -1,6 +1,6 @@
-import React, {PropTypes, Component} from "react";
+import React, { PropTypes, Component } from "react";
 
-import Row, {evenRowClassName,oddRowClassName} from "./Row"
+import Row, { evenRowClassName, oddRowClassName } from "./Row"
 
 import addClassName from "../enhancements/addClassName";
 import provideCorrectDOMNode from "../enhancements/provideCorrectDOMNode";
@@ -18,7 +18,7 @@ export class Body extends Component {
         this.toggleDetails = this.toggleDetails.bind(this);
     }
 
-    componentWillReceiveProps({data = []}) {
+    componentWillReceiveProps({ data = [] }) {
         this.setState({
             data,
             itemsWithInlinedDetails: []
@@ -26,7 +26,7 @@ export class Body extends Component {
     }
 
     toggleDetails(clickedItem) {
-        if(this.props.detailsInlined) {
+        if (this.props.detailsInlined) {
             this.toggleInlinedDetailsRow(clickedItem);
         } else {
             this.toggleStandaloneDetailsRow(clickedItem);
@@ -50,7 +50,7 @@ export class Body extends Component {
         const indexOfClickedItem = this.state.data.indexOf(clickedItem);
         const detailsAlreadyOpened = this.state.itemsWithInlinedDetails.includes(indexOfClickedItem);
 
-        if(detailsAlreadyOpened) {
+        if (detailsAlreadyOpened) {
             this.hideInlinedDetails(indexOfClickedItem);
         } else {
             this.showInlinedDetails(indexOfClickedItem);
@@ -136,13 +136,26 @@ export class Body extends Component {
     getCell(column, row) {
         const cellProperties = {};
         const toggler = this.toggleDetails.bind(this, row);
+        const onClickHandlers = [];
 
         cellProperties.content = column.component && typeof column.component === "function"
             ? column.component(row, toggler)
             : row[column.field];
 
         if (this.props.details) {
-            cellProperties.onClick = toggler;
+            onClickHandlers.push(toggler);
+        }
+
+        if (this.props.onRowClick) {
+            onClickHandlers.push((event) => this.props.onRowClick(row, event));
+        }
+
+        if (onClickHandlers.length) {
+            cellProperties.onClick = (event) => {
+                onClickHandlers.forEach(handler => {
+                   handler(event);
+                });
+            }
         }
 
         return cellProperties;
@@ -154,14 +167,14 @@ export class Body extends Component {
         return data.map((rowData, index) => {
             if (rowData.isRowWithDetails && this.props.detailsInlined !== true) {
                 const dataOfPreviousRow = data[index - 1];
-                return {cells: this.getDetailsRowCells(dataOfPreviousRow), className: this.getClassName(lastFullRowIndex, index)};
+                return { cells: this.getDetailsRowCells(dataOfPreviousRow), className: this.getClassName(lastFullRowIndex, index) };
             } else if (this.state.itemsWithInlinedDetails.indexOf(index) > -1 && this.props.detailsInlined && this.context.semantic === false) {
-                return {cells: this.getRowWithInlinedDetailsCells(rowData), className: this.getClassName(lastFullRowIndex, index)};
+                return { cells: this.getRowWithInlinedDetailsCells(rowData), className: this.getClassName(lastFullRowIndex, index) };
             } else if (rowData.fullRow) {
                 lastFullRowIndex = index;
-                return {cells: this.getFullRowCells(rowData)};
+                return { cells: this.getFullRowCells(rowData) };
             } else {
-                return {cells: this.getStandardRowCells(rowData), className: this.getClassName(lastFullRowIndex, index)}
+                return { cells: this.getStandardRowCells(rowData), className: this.getClassName(lastFullRowIndex, index) }
             }
         });
 
@@ -185,7 +198,7 @@ export class Body extends Component {
     }
 
     render() {
-        const {Element} = this.props;
+        const { Element } = this.props;
 
         return (
             <Element className={this.props.className}>
@@ -201,7 +214,8 @@ Body.propTypes = {
     details: PropTypes.func,
     detailsInlined: PropTypes.bool,
     className: PropTypes.string,
-    Element: PropTypes.string
+    Element: PropTypes.string,
+    onRowClick: PropTypes.func
 };
 
 Body.defaultProps = {
