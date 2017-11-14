@@ -11,7 +11,8 @@ export function Head({
     onSort,
     className,
     Element,
-    onReorder
+    onReorder,
+    headerComponent
  }) {
     return (
         <Element className={className}>

@@ -53,12 +53,22 @@ export function Column({ column, className, Element, onReorder }) {
         }
     }
 
-    return (
-        <Element {...props}>
-            {renderTitle(column.title)}
-            {renderSorter(column, isSortable)}
-        </Element>
-    );
+    return column.headerComponent && typeof column.headerComponent === "function"
+        ? (
+            <Element {...props}>
+                {
+                    column.headerComponent(
+                        () => renderTitle(column.title),
+                        () => renderSorter(column, isSortable)
+                    )
+                }
+            </Element>
+        ) : (
+            <Element {...props}>
+                {renderTitle(column.title)}
+                {renderSorter(column, isSortable)}
+            </Element>
+        );
 }
 
 function renderTitle(title) {

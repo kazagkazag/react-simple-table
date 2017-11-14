@@ -11,6 +11,7 @@ interface Column {
     isSortable?: boolean;
     component?: (row: any, toggleDetails: () => void) => any;
     absoluteWidth?: number;
+    headerComponent?: (title: any, sorter: any) => any;
 }
 
 interface TableProps {

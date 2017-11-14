@@ -182,6 +182,23 @@ describe("Head", () => {
         expect(wrapper.find(".custom-class")).to.have.length(1);
     });
 
+    it("should render wrapper for header cell", () => {
+        const columns = [
+            {
+                title: "Title",
+                sorted: "ASC",
+                headerComponent: (renderTitle) => <p className="custom-class">{renderTitle()}</p>
+            }
+        ];
+        const newProps = Object.assign({}, props, {
+            columns
+        });
+        const wrapper = mount(<Head {...newProps} />, options);
+
+        expect(wrapper.find(".custom-class")).to.have.length(1);
+        expect(wrapper.find(".custom-class").text()).to.equal("Title");
+    });
+
     it("should not render title if it is a function but not react element", () => {
         const columns = [
             {

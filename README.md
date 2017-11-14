@@ -59,6 +59,9 @@ For `true` **or** `undefined` it will render `Sorter` **with** `onSort` function
 If `false` then sorting capability for given column will be disabled
 #### `columns.absoluteWidth` (number)
 Width of the column specified as a number (rendered with `px` as the unit in `style` property of the cell).
+#### `columns.headerComponent` (function)
+Function that should return header component.
+Takes two arguments - `renderTitle` and `renderSorter` functions (you can use them to render title and sorter).
 
 #### `columns.component` (function) 
 If you want to specify column unrelated to
@@ -113,6 +116,8 @@ Takes one argument - `body` which should be rendered inside your component.
 Function that is fired after columns reorder. If `onReorder` property is provided, all columns are draggable
 and user is able to reorder columns using pointer.
 Takes two arguments - `source column title` and `target column title`.
+**Important** - columns title should be defined as a string, not a function. If you need to define
+custom components for columns header, please use `columns.headerComponent`.
 
 ### `onRowClick` (function)
 Function that is fired after click on the row cells.
