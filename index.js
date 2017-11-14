@@ -783,7 +783,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	    }
 	
-	    return _react2.default.createElement(
+	    return column.headerComponent && typeof column.headerComponent === "function" ? _react2.default.createElement(
+	        Element,
+	        props,
+	        column.headerComponent(function () {
+	            return renderTitle(column.title);
+	        }, function () {
+	            return renderSorter(column, isSortable);
+	        })
+	    ) : _react2.default.createElement(
 	        Element,
 	        props,
 	        renderTitle(column.title),
@@ -932,7 +940,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onSort = _ref.onSort,
 	        className = _ref.className,
 	        Element = _ref.Element,
-	        onReorder = _ref.onReorder;
+	        onReorder = _ref.onReorder,
+	        headerComponent = _ref.headerComponent;
 	
 	    return _react2.default.createElement(
 	        Element,
