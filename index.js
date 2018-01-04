@@ -7,7 +7,7 @@
 		exports["ReactSimpleTable"] = factory(require("react"));
 	else
 		root["ReactSimpleTable"] = factory(root["React"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -72,12 +72,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 *
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
+	 */
+	
+	if (false) {
+	  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+	    Symbol.for &&
+	    Symbol.for('react.element')) ||
+	    0xeac7;
+	
+	  var isValidElement = function(object) {
+	    return typeof object === 'object' &&
+	      object !== null &&
+	      object.$$typeof === REACT_ELEMENT_TYPE;
+	  };
+	
+	  // By explicitly using `prop-types` you are opting into new development behavior.
+	  // http://fb.me/prop-types-in-prod
+	  var throwOnDirectAccess = true;
+	  module.exports = require('./factoryWithTypeCheckers')(isValidElement, throwOnDirectAccess);
+	} else {
+	  // By explicitly using `prop-types` you are opting into new production behavior.
+	  // http://fb.me/prop-types-in-prod
+	  module.exports = __webpack_require__(17)();
+	}
+
 
 /***/ },
 /* 2 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+
+/***/ },
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -86,9 +120,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -104,7 +142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	
 	        ElementWithClassName.contextTypes = {
-	            className: _react.PropTypes.string
+	            className: _propTypes2.default.string
 	        };
 	
 	        return ElementWithClassName;
@@ -112,7 +150,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -121,9 +159,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -139,7 +181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	
 	        ElementWithCorrectDOMNode.contextTypes = {
-	            semantic: _react.PropTypes.bool
+	            semantic: _propTypes2.default.bool
 	        };
 	
 	        return ElementWithCorrectDOMNode;
@@ -147,12 +189,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var randomFromSeed = __webpack_require__(21);
+	var randomFromSeed = __webpack_require__(25);
 	
 	var ORIGINAL = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
 	var alphabet;
@@ -251,31 +293,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var randomByte = __webpack_require__(20);
-	
-	function encode(lookup, number) {
-	    var loopCounter = 0;
-	    var done;
-	
-	    var str = '';
-	
-	    while (!done) {
-	        str = str + lookup( ( (number >> (4 * loopCounter)) & 0x0f ) | randomByte() );
-	        done = number < (Math.pow(16, loopCounter + 1 ) );
-	        loopCounter++;
-	    }
-	    return str;
-	}
-	
-	module.exports = encode;
-
-
-/***/ },
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -290,19 +307,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Row = __webpack_require__(8);
 	
 	var _Row2 = _interopRequireDefault(_Row);
 	
-	var _addClassName = __webpack_require__(2);
+	var _addClassName = __webpack_require__(3);
 	
 	var _addClassName2 = _interopRequireDefault(_addClassName);
 	
-	var _provideCorrectDOMNode = __webpack_require__(3);
+	var _provideCorrectDOMNode = __webpack_require__(4);
 	
 	var _provideCorrectDOMNode2 = _interopRequireDefault(_provideCorrectDOMNode);
 	
@@ -555,13 +576,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react.Component);
 	
 	Body.propTypes = {
-	    columns: _react.PropTypes.array,
-	    data: _react.PropTypes.array,
-	    details: _react.PropTypes.func,
-	    detailsInlined: _react.PropTypes.bool,
-	    className: _react.PropTypes.string,
-	    Element: _react.PropTypes.string,
-	    onRowClick: _react.PropTypes.func
+	    columns: _propTypes2.default.array,
+	    data: _propTypes2.default.array,
+	    details: _propTypes2.default.func,
+	    detailsInlined: _propTypes2.default.bool,
+	    className: _propTypes2.default.string,
+	    Element: _propTypes2.default.string,
+	    onRowClick: _propTypes2.default.func
 	};
 	
 	Body.defaultProps = {
@@ -569,7 +590,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	Body.contextTypes = {
-	    semantic: _react.PropTypes.bool
+	    semantic: _propTypes2.default.bool
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("tbody")((0, _addClassName2.default)("_body")(Body));
@@ -585,15 +606,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Cell = Cell;
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _addClassName = __webpack_require__(2);
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _addClassName = __webpack_require__(3);
 	
 	var _addClassName2 = _interopRequireDefault(_addClassName);
 	
-	var _provideCorrectDOMNode = __webpack_require__(3);
+	var _provideCorrectDOMNode = __webpack_require__(4);
 	
 	var _provideCorrectDOMNode2 = _interopRequireDefault(_provideCorrectDOMNode);
 	
@@ -621,12 +646,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	Cell.propTypes = {
-	    additionalClassName: _react.PropTypes.string,
-	    className: _react.PropTypes.string,
-	    colSpan: _react.PropTypes.number,
-	    onClick: _react.PropTypes.func,
-	    children: _react.PropTypes.node,
-	    absoluteWidth: _react.PropTypes.number
+	    additionalClassName: _propTypes2.default.string,
+	    className: _propTypes2.default.string,
+	    colSpan: _propTypes2.default.number,
+	    onClick: _propTypes2.default.func,
+	    children: _propTypes2.default.node,
+	    absoluteWidth: _propTypes2.default.number
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("td")((0, _addClassName2.default)("_cell")(Cell));
@@ -642,19 +667,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.oddRowClassName = exports.evenRowClassName = undefined;
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Cell = __webpack_require__(7);
 	
 	var _Cell2 = _interopRequireDefault(_Cell);
 	
-	var _addClassName = __webpack_require__(2);
+	var _addClassName = __webpack_require__(3);
 	
 	var _addClassName2 = _interopRequireDefault(_addClassName);
 	
-	var _provideCorrectDOMNode = __webpack_require__(3);
+	var _provideCorrectDOMNode = __webpack_require__(4);
 	
 	var _provideCorrectDOMNode2 = _interopRequireDefault(_provideCorrectDOMNode);
 	
@@ -693,10 +722,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	Row.propTypes = {
-	    cells: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
-	    className: _react.PropTypes.string,
-	    additionalClassName: _react.PropTypes.string,
-	    Element: _react.PropTypes.string
+	    cells: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.array]),
+	    className: _propTypes2.default.string,
+	    additionalClassName: _propTypes2.default.string,
+	    Element: _propTypes2.default.string
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("tr")((0, _addClassName2.default)("_row")(Row));
@@ -712,19 +741,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Column = Column;
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Sorter = __webpack_require__(12);
 	
 	var _Sorter2 = _interopRequireDefault(_Sorter);
 	
-	var _addClassName = __webpack_require__(2);
+	var _addClassName = __webpack_require__(3);
 	
 	var _addClassName2 = _interopRequireDefault(_addClassName);
 	
-	var _provideCorrectDOMNode = __webpack_require__(3);
+	var _provideCorrectDOMNode = __webpack_require__(4);
 	
 	var _provideCorrectDOMNode2 = _interopRequireDefault(_provideCorrectDOMNode);
 	
@@ -819,10 +852,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	Column.propTypes = {
-	    column: _react.PropTypes.object,
-	    className: _react.PropTypes.string,
-	    Element: _react.PropTypes.string,
-	    onReorder: _react.PropTypes.func
+	    column: _propTypes2.default.object,
+	    className: _propTypes2.default.string,
+	    Element: _propTypes2.default.string,
+	    onReorder: _propTypes2.default.func
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("th")((0, _addClassName2.default)("_th")(Column));
@@ -838,11 +871,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Columns = Columns;
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _shortid = __webpack_require__(15);
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _shortid = __webpack_require__(19);
 	
 	var _shortid2 = _interopRequireDefault(_shortid);
 	
@@ -850,11 +887,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _Column2 = _interopRequireDefault(_Column);
 	
-	var _addClassName = __webpack_require__(2);
+	var _addClassName = __webpack_require__(3);
 	
 	var _addClassName2 = _interopRequireDefault(_addClassName);
 	
-	var _provideCorrectDOMNode = __webpack_require__(3);
+	var _provideCorrectDOMNode = __webpack_require__(4);
 	
 	var _provideCorrectDOMNode2 = _interopRequireDefault(_provideCorrectDOMNode);
 	
@@ -893,13 +930,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	Columns.propTypes = {
-	    columns: _react.PropTypes.array,
-	    sorterComponent: _react.PropTypes.func,
-	    onSort: _react.PropTypes.func,
-	    columnClassName: _react.PropTypes.string,
-	    className: _react.PropTypes.string,
-	    Element: _react.PropTypes.string,
-	    onReorder: _react.PropTypes.func
+	    columns: _propTypes2.default.array,
+	    sorterComponent: _propTypes2.default.func,
+	    onSort: _propTypes2.default.func,
+	    columnClassName: _propTypes2.default.string,
+	    className: _propTypes2.default.string,
+	    Element: _propTypes2.default.string,
+	    onReorder: _propTypes2.default.func
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("tr")((0, _addClassName2.default)("_head-row")(Columns));
@@ -915,19 +952,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Head = Head;
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Columns = __webpack_require__(10);
 	
 	var _Columns2 = _interopRequireDefault(_Columns);
 	
-	var _addClassName = __webpack_require__(2);
+	var _addClassName = __webpack_require__(3);
 	
 	var _addClassName2 = _interopRequireDefault(_addClassName);
 	
-	var _provideCorrectDOMNode = __webpack_require__(3);
+	var _provideCorrectDOMNode = __webpack_require__(4);
 	
 	var _provideCorrectDOMNode2 = _interopRequireDefault(_provideCorrectDOMNode);
 	
@@ -956,12 +997,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	Head.propTypes = {
-	    columns: _react.PropTypes.array,
-	    sorterComponent: _react.PropTypes.func,
-	    onSort: _react.PropTypes.func,
-	    className: _react.PropTypes.string,
-	    Element: _react.PropTypes.string,
-	    onReorder: _react.PropTypes.func
+	    columns: _propTypes2.default.array,
+	    sorterComponent: _propTypes2.default.func,
+	    onSort: _propTypes2.default.func,
+	    className: _propTypes2.default.string,
+	    Element: _propTypes2.default.string,
+	    onReorder: _propTypes2.default.func
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("thead")((0, _addClassName2.default)("_head")(Head));
@@ -977,9 +1018,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.default = Sorter;
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -995,8 +1040,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	Sorter.propTypes = {
-	    sorted: _react.PropTypes.any,
-	    sorterComponent: _react.PropTypes.func
+	    sorted: _propTypes2.default.any,
+	    sorterComponent: _propTypes2.default.func
 	};
 
 /***/ },
@@ -1062,9 +1107,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Head = __webpack_require__(11);
 	
@@ -1184,24 +1233,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	Table.propTypes = {
-	    columns: _react.PropTypes.array,
-	    data: _react.PropTypes.array,
-	    className: _react.PropTypes.string,
-	    details: _react.PropTypes.func,
-	    sorterComponent: _react.PropTypes.func,
-	    maxHeight: _react.PropTypes.string,
-	    onScrollToBottom: _react.PropTypes.func,
-	    onSort: _react.PropTypes.func,
-	    onReorder: _react.PropTypes.func,
-	    semantic: _react.PropTypes.bool,
-	    detailsInlined: _react.PropTypes.bool,
-	    bodyWrapper: _react.PropTypes.func,
-	    onRowClick: _react.PropTypes.func
+	    columns: _propTypes2.default.array,
+	    data: _propTypes2.default.array,
+	    className: _propTypes2.default.string,
+	    details: _propTypes2.default.func,
+	    sorterComponent: _propTypes2.default.func,
+	    maxHeight: _propTypes2.default.string,
+	    onScrollToBottom: _propTypes2.default.func,
+	    onSort: _propTypes2.default.func,
+	    onReorder: _propTypes2.default.func,
+	    semantic: _propTypes2.default.bool,
+	    detailsInlined: _propTypes2.default.bool,
+	    bodyWrapper: _propTypes2.default.func,
+	    onRowClick: _propTypes2.default.func
 	};
 	
 	Table.childContextTypes = {
-	    className: _react.PropTypes.string,
-	    semantic: _react.PropTypes.bool
+	    className: _propTypes2.default.string,
+	    semantic: _propTypes2.default.bool
 	};
 	
 	Table.defaultProps = {
@@ -1212,20 +1261,251 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 15 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
-	module.exports = __webpack_require__(18);
-
+	"use strict";
+	
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 *
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
+	 *
+	 * 
+	 */
+	
+	function makeEmptyFunction(arg) {
+	  return function () {
+	    return arg;
+	  };
+	}
+	
+	/**
+	 * This function accepts and discards inputs; it has no side effects. This is
+	 * primarily useful idiomatically for overridable function endpoints which
+	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+	 */
+	var emptyFunction = function emptyFunction() {};
+	
+	emptyFunction.thatReturns = makeEmptyFunction;
+	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+	emptyFunction.thatReturnsThis = function () {
+	  return this;
+	};
+	emptyFunction.thatReturnsArgument = function (arg) {
+	  return arg;
+	};
+	
+	module.exports = emptyFunction;
 
 /***/ },
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 *
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
+	 *
+	 */
+	
 	'use strict';
 	
-	var encode = __webpack_require__(5);
-	var alphabet = __webpack_require__(4);
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+	
+	var validateFormat = function validateFormat(format) {};
+	
+	if (false) {
+	  validateFormat = function validateFormat(format) {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  };
+	}
+	
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  validateFormat(format);
+	
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	      error.name = 'Invariant Violation';
+	    }
+	
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	}
+	
+	module.exports = invariant;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 *
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
+	 */
+	
+	'use strict';
+	
+	var emptyFunction = __webpack_require__(15);
+	var invariant = __webpack_require__(16);
+	var ReactPropTypesSecret = __webpack_require__(18);
+	
+	module.exports = function() {
+	  function shim(props, propName, componentName, location, propFullName, secret) {
+	    if (secret === ReactPropTypesSecret) {
+	      // It is still safe when called from React.
+	      return;
+	    }
+	    invariant(
+	      false,
+	      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+	      'Use PropTypes.checkPropTypes() to call them. ' +
+	      'Read more at http://fb.me/use-check-prop-types'
+	    );
+	  };
+	  shim.isRequired = shim;
+	  function getShim() {
+	    return shim;
+	  };
+	  // Important!
+	  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+	  var ReactPropTypes = {
+	    array: shim,
+	    bool: shim,
+	    func: shim,
+	    number: shim,
+	    object: shim,
+	    string: shim,
+	    symbol: shim,
+	
+	    any: shim,
+	    arrayOf: getShim,
+	    element: shim,
+	    instanceOf: getShim,
+	    node: shim,
+	    objectOf: getShim,
+	    oneOf: getShim,
+	    oneOfType: getShim,
+	    shape: getShim,
+	    exact: getShim
+	  };
+	
+	  ReactPropTypes.checkPropTypes = emptyFunction;
+	  ReactPropTypes.PropTypes = ReactPropTypes;
+	
+	  return ReactPropTypes;
+	};
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 *
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
+	 */
+	
+	'use strict';
+	
+	var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+	
+	module.exports = ReactPropTypesSecret;
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	module.exports = __webpack_require__(22);
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var alphabet = __webpack_require__(5);
+	
+	/**
+	 * Decode the id to get the version and worker
+	 * Mainly for debugging and testing.
+	 * @param id - the shortid-generated id.
+	 */
+	function decode(id) {
+	    var characters = alphabet.shuffled();
+	    return {
+	        version: characters.indexOf(id.substr(0, 1)) & 0x0f,
+	        worker: characters.indexOf(id.substr(1, 1)) & 0x0f
+	    };
+	}
+	
+	module.exports = decode;
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var randomByte = __webpack_require__(24);
+	
+	function encode(lookup, number) {
+	    var loopCounter = 0;
+	    var done;
+	
+	    var str = '';
+	
+	    while (!done) {
+	        str = str + lookup( ( (number >> (4 * loopCounter)) & 0x0f ) | randomByte() );
+	        done = number < (Math.pow(16, loopCounter + 1 ) );
+	        loopCounter++;
+	    }
+	    return str;
+	}
+	
+	module.exports = encode;
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var alphabet = __webpack_require__(5);
+	var encode = __webpack_require__(21);
+	var decode = __webpack_require__(20);
+	var isValid = __webpack_require__(23);
 	
 	// Ignore all milliseconds before a certain time to reduce the size of the date entropy without sacrificing uniqueness.
 	// This number should be updated every year or so to keep the generated id short.
@@ -1235,6 +1515,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	// don't change unless we change the algos or REDUCE_TIME
 	// must be an integer and less than 16
 	var version = 6;
+	
+	// if you are using cluster or multiple servers use this to make each instance
+	// has a unique value for worker
+	// Note: I don't know if this is automatically set when using third
+	// party cluster solutions such as pm2.
+	var clusterWorkerId = __webpack_require__(26) || 0;
 	
 	// Counter is used when shortid is called multiple times in one second.
 	var counter;
@@ -1246,7 +1532,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Generate unique id
 	 * Returns string id
 	 */
-	function build(clusterWorkerId) {
+	function generate() {
 	
 	    var str = '';
 	
@@ -1269,49 +1555,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return str;
 	}
 	
-	module.exports = build;
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var alphabet = __webpack_require__(4);
-	
-	/**
-	 * Decode the id to get the version and worker
-	 * Mainly for debugging and testing.
-	 * @param id - the shortid-generated id.
-	 */
-	function decode(id) {
-	    var characters = alphabet.shuffled();
-	    return {
-	        version: characters.indexOf(id.substr(0, 1)) & 0x0f,
-	        worker: characters.indexOf(id.substr(1, 1)) & 0x0f
-	    };
-	}
-	
-	module.exports = decode;
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var alphabet = __webpack_require__(4);
-	var encode = __webpack_require__(5);
-	var decode = __webpack_require__(17);
-	var build = __webpack_require__(16);
-	var isValid = __webpack_require__(19);
-	
-	// if you are using cluster or multiple servers use this to make each instance
-	// has a unique value for worker
-	// Note: I don't know if this is automatically set when using third
-	// party cluster solutions such as pm2.
-	var clusterWorkerId = __webpack_require__(22) || 0;
 	
 	/**
 	 * Set the seed.
@@ -1348,13 +1591,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return alphabet.shuffled();
 	}
 	
-	/**
-	 * Generate unique id
-	 * Returns string id
-	 */
-	function generate() {
-	  return build(clusterWorkerId);
-	}
 	
 	// Export all other functions as properties of the generate function
 	module.exports = generate;
@@ -1367,11 +1603,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 19 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var alphabet = __webpack_require__(4);
+	var alphabet = __webpack_require__(5);
 	
 	function isShortId(id) {
 	    if (!id || typeof id !== 'string' || id.length < 6 ) {
@@ -1392,7 +1628,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 20 */
+/* 24 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1412,7 +1648,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 21 */
+/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1443,7 +1679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports) {
 
 	'use strict';

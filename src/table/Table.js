@@ -1,4 +1,5 @@
-import React, {PropTypes, Component} from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import Head from "../head/Head";
 import Body from "../body/Body";
@@ -36,7 +37,7 @@ export default class Table extends Component {
     }
 
     addMaxHeightStyles(styles) {
-        if(this.props.maxHeight) {
+        if (this.props.maxHeight) {
             styles.maxHeight = this.props.maxHeight;
             styles.overflowY = "auto";
         }

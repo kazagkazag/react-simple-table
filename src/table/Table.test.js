@@ -79,12 +79,12 @@ describe("Table", () => {
             semantic: false
         });
         const wrapper = mount(<Table {...newProps}/>);
-        expect(wrapper.find(`.${className}`).type()).to.equal("div");
-        expect(wrapper.find(`.${className}_th`).at(0).type()).to.equal("div");
-        expect(wrapper.find(`.${className}_head`).at(0).type()).to.equal("div");
-        expect(wrapper.find(`.${className}_body`).at(0).type()).to.equal("div");
-        expect(wrapper.find(`.${className}_row`).at(0).type()).to.equal("div");
-        expect(wrapper.find(`.${className}_cell`).at(0).type()).to.equal("div");
+        expect(wrapper.find(`div.${className}`).length).to.be.greaterThan(0);
+        expect(wrapper.find(`div.${className}_th`).length).to.be.greaterThan(0);
+        expect(wrapper.find(`div.${className}_head`).length).to.be.greaterThan(0);
+        expect(wrapper.find(`div.${className}_body`).length).to.be.greaterThan(0);
+        expect(wrapper.find(`div.${className}_row`).length).to.be.greaterThan(0);
+        expect(wrapper.find(`div.${className}_cell`).length).to.be.greaterThan(0);
     });
 
     it("should render table with max height if specified", () => {

@@ -1,4 +1,5 @@
-import React, { PropTypes, isValidElement } from "react";
+import React, { isValidElement } from "react";
+import PropTypes from "prop-types";
 
 import Sorter from "./Sorter";
 
