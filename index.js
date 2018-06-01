@@ -1209,7 +1209,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    onScroll: this.onScroll,
 	                    ref: function ref(element) {
 	                        return _this2.container = element;
-	                    }
+	                    },
+	                    tabIndex: 0
 	                },
 	                _react2.default.createElement(
 	                    Element,

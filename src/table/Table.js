@@ -68,6 +68,7 @@ export default class Table extends Component {
                 style={this.getContainerStyles()}
                 onScroll={this.onScroll}
                 ref={element => this.container = element}
+                tabIndex={0}
             >
                 <Element className={this.props.className}>
                     <Head
