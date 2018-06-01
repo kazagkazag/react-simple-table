@@ -30,18 +30,21 @@ function Row(props) {
 
     const rowAdditionalClassName = props.additionalClassName ? props.additionalClassName : "";
 
-    return (
+    const row = (
         <Element className={`${props.className} ${rowAdditionalClassName}`}>
             {cells}
         </Element>
     );
+
+    return props.rowWrapper ? props.rowWrapper(row, props.cells) : row;
 }
 
 Row.propTypes = {
     cells: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     className: PropTypes.string,
     additionalClassName: PropTypes.string,
-    Element: PropTypes.string
+    Element: PropTypes.string,
+    rowWrapper: PropTypes.func
 };
 
 export default provideCorrectDOMNode("tr")(

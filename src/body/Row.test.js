@@ -22,4 +22,19 @@ describe("Row", () => {
 
         expect(wrapper.find(Cell)).to.have.length(1);
     });
+
+    it("should render in wrapper", () => {
+        const newProps = Object.assign({}, props, {
+            cells: [
+                {
+                    content: "test"
+                }
+            ]
+        });
+        const rowWrapper = row => <div className="rowWrapper">{row}</div>
+        const wrapper = mount(<Row {...newProps} rowWrapper={rowWrapper}/>);
+
+        expect(wrapper.find(".rowWrapper")).to.have.length(1);
+        expect(wrapper.find(Cell)).to.have.length(1);
+    });
 });

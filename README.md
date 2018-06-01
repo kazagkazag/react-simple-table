@@ -112,6 +112,11 @@ HTML table elements.
 Function that returns component wrapping entire table body.
 Takes one argument - `body` which should be rendered inside your component.
 
+### `rowWrapper` (function)
+Function that returns component wrapping every row.
+Takes two arguments - `row` which should be rendered inside your component and `cells` - list of cells
+that will be rendered in the row.
+
 ### `onReorder` (function)
 Function that is fired after columns reorder. If `onReorder` property is provided, all columns are draggable
 and user is able to reorder columns using pointer.

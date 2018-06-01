@@ -550,11 +550,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: "renderRows",
 	        value: function renderRows() {
+	            var _this6 = this;
+	
 	            return this.getCellsForRowsInColumnsOrder().map(function (row, index) {
 	                return _react2.default.createElement(_Row2.default, {
 	                    key: index,
 	                    cells: row.cells,
-	                    additionalClassName: row.className
+	                    additionalClassName: row.className,
+	                    rowWrapper: _this6.props.rowWrapper
 	                });
 	            });
 	        }
@@ -582,7 +585,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    detailsInlined: _propTypes2.default.bool,
 	    className: _propTypes2.default.string,
 	    Element: _propTypes2.default.string,
-	    onRowClick: _propTypes2.default.func
+	    onRowClick: _propTypes2.default.func,
+	    rowWrapper: _propTypes2.default.func
 	};
 	
 	Body.defaultProps = {
@@ -714,18 +718,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    var rowAdditionalClassName = props.additionalClassName ? props.additionalClassName : "";
 	
-	    return _react2.default.createElement(
+	    var row = _react2.default.createElement(
 	        Element,
 	        { className: props.className + " " + rowAdditionalClassName },
 	        cells
 	    );
+	
+	    return props.rowWrapper ? props.rowWrapper(row, props.cells) : row;
 	}
 	
 	Row.propTypes = {
 	    cells: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.array]),
 	    className: _propTypes2.default.string,
 	    additionalClassName: _propTypes2.default.string,
-	    Element: _propTypes2.default.string
+	    Element: _propTypes2.default.string,
+	    rowWrapper: _propTypes2.default.func
 	};
 	
 	exports.default = (0, _provideCorrectDOMNode2.default)("tr")((0, _addClassName2.default)("_row")(Row));
@@ -1189,7 +1196,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                data: this.props.data,
 	                details: this.props.details,
 	                detailsInlined: this.props.detailsInlined,
-	                onRowClick: this.props.onRowClick
+	                onRowClick: this.props.onRowClick,
+	                rowWrapper: this.props.rowWrapper
 	            });
 	
 	            return this.props.bodyWrapper ? this.props.bodyWrapper(body) : body;
@@ -1246,7 +1254,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    semantic: _propTypes2.default.bool,
 	    detailsInlined: _propTypes2.default.bool,
 	    bodyWrapper: _propTypes2.default.func,
-	    onRowClick: _propTypes2.default.func
+	    onRowClick: _propTypes2.default.func,
+	    rowWrapper: _propTypes2.default.func
 	};
 	
 	Table.childContextTypes = {

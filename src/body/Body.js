@@ -195,6 +195,7 @@ export class Body extends Component {
                         key={index}
                         cells={row.cells}
                         additionalClassName={row.className}
+                        rowWrapper={this.props.rowWrapper}
                     />
                 );
             });
@@ -218,7 +219,8 @@ Body.propTypes = {
     detailsInlined: PropTypes.bool,
     className: PropTypes.string,
     Element: PropTypes.string,
-    onRowClick: PropTypes.func
+    onRowClick: PropTypes.func,
+    rowWrapper: PropTypes.func,
 };
 
 Body.defaultProps = {

@@ -27,6 +27,7 @@ interface TableProps {
     semantic?: boolean;
     detailsInlined?: boolean;
     bodyWrapper?: (body: any) => any;
+    rowWrapper?: (row: any, cells: any) => any;
     onRowClick?: (clickedRow: any, event: any) => void;
 }
 
